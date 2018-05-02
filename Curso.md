@@ -192,15 +192,31 @@ Para garantir que geraremos apenas pétalas inteiras, precisamos dar um jeito de
 
 ### Variáveis
 
-Variáveis são nada mais nada menos que bloquinhos que guardam valores. No nosso caso, vamos usar um bloco chamado `[number]` pra armazenar o *número de pétalas* que queremos para a nossa flor. Depois vamos usar um outro bloco, o `[multiply]`, para multiplicar o número de pétalas pela quantidade de *distâncias*, obtendo assim a quantidade de *ângulos*, conforme a figura:
+Variáveis são nada mais nada menos que bloquinhos que guardam valores. Vamos usá-las para construir a seguinte relação:
+
+> nº de ângulos = nº de pétalas · nº de distâncias
+
+Isso porque, como vimos acima, se quisermos gerar 2 pétalas (ou seja, *nº de pétalas* = $2$), precisamos que o *nº de ângulos* (que, no nosso exemplo, foi de *20*) fosse igual a 2 vezes o *nº de distâncias* (que, no nosso exemplo, foi de *10*). Da mesma forma, se quisermos gerar 3 pétalas (*nº de pétalas* = $2$), precisamos que o *nº de ângulos* fosse igual a 3 vezes o *nº de pétalas*. É uma regra geral, portanto, que repetimos abaixo para frisar:
+
+> nº de ângulos = nº de pétalas · nº de distâncias
+
+Como dissemos, uma variável no `nodebox` é um bloco que guarda um valor. Vamos usar, então, um bloco chamado `[number]` para armazenar o número de pétalas e outro para armazenar o número de distâncias e, então, multiplicá-las usando um bloco `[multiply]`:
+
+![⁣](Figuras/2 - Abstrações/multiplicação.pdf){width=60%}
+
+Para que nos lembremos o que cada um desses blocos representa, vamos renomeá-los. O `nodebox` permite que renomeemos um bloco clicando nele com o botão direito e escolhendo a opção *Rename*. Façamos isto: vamos renomeá-los segundo a figura abaixo^[Nota: o `nodebox` não permite que um bloco tenha [sinais diacríticos ](https://pt.wikipedia.org/wiki/Diacr%C3%ADtico) (como acentos e cedilha) em seu nome. Se você tentar nomeá-lo com uma palavra que contém sinais diacríticos, um erro vai aparecer.].
+
+![⁣](Figuras/2 - Abstrações/multiplicação2.pdf){width=25%}
+
+ No nosso caso, vamos usar um bloco chamado `[integer]` pra armazenar o *número de pétalas* que queremos para a nossa flor^[O bloco `[integer]` se chama assim porque ele armazena um número inteiro.]. Depois vamos usar um outro bloco, o `[multiply]`, para multiplicar o número de pétalas pela quantidade de *distâncias*, obtendo assim a quantidade de *ângulos*, conforme a figura:
 
 ![](Aula 2/multiplicação.png){width=100%}
 
-Note como o bloco `[number1]` armazena o número de pétalas (3), enquanto que o bloco `[number2]` armazena a quantidade de distâncias. Para tornar isso mais claro no código, vou renomeá-los para `[petals]` e `[distances]` respectivamente^[Para renomear um bloco, clique nele com o botão direito e escolha a opção *Rename*.]:
+Usemos agora esse cálculo do número de ângulos no código da nossa flor:
 
-![](Aula 2/renomeio.png){width=50%}
+![⁣](Figuras/2 - Abstrações/pétalas6.pdf){width=60%}
 
-Pronto! Agora a quantidade de distâncias e de ângulos estão ligadas. Acabamos de aprender a primeira ferramenta de abstração: *a criação de uma variável*.
+Pronto! Agora as quantidades de distâncias e de ângulos estão ligadas e teremos sempre um número exato de pétalas, sem correr o risco de gerar meias pétalas. Também demos um significado semântico aos números armazenados nos argumentos `amount` dos dois `[sample]`. Acabamos de aprender a primeira ferramenta de abstração: *a criação de uma variável*.
 
 
 ## Flores, funções e abstrações
