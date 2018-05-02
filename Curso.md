@@ -148,7 +148,7 @@ Se o `[coordinates]` receber uma lista de valores para o ângulo (lista que pode
 
 Se passarmos também uma lista de valores para a distância, obteremos uma lista de pontos dispostos em espiral:
 
-![⁣](Figuras/2 - Abstrações/espiral.pdf){width=55%}
+![⁣](Figuras/2 - Abstrações/espiral.pdf){width=30%}
 
 Aconselho que, antes de seguir a lição, você gaste um tempo explorando diferentes valores para o ângulo e a distância, para que assim desenvolva uma melhor intuição sobre como o `[coordinates]` funciona.
 
@@ -156,19 +156,19 @@ Aconselho que, antes de seguir a lição, você gaste um tempo explorando difere
 
 Uma vez de posse de uma lista de pontos, blocos podemos ligá-los usando um bloco chamado `[connect]`:
 
-![](Aula 2/connect.png){width=50%}
+![⁣](Figuras/2 - Abstrações/pétalas.pdf){width=30%}
 
 ### Pétalas
 
-Estamos usando dois `[sample]` para gerar as listas de ângulos e de distâncias, e, por enquanto, ambos geram 10 elementos. O que acontece se passarmos a gerar 20 ângulos mas mantivermos as 10 distâncias? Vejamos:
+Estamos usando dois `[sample]` para gerar as listas de ângulos e de distâncias, e, por enquanto, ambos geram 10 elementos (que é o valor padrão do argumento `amount` do `[sample]`). O que acontece se passarmos a gerar 20 ângulos mas mantivermos as 10 distâncias? Vejamos:
 
-![](Aula 2/2 pétalas.png){width=50%}
+![⁣](Figuras/2 - Abstrações/pétalas2.pdf){width=50%}
 
 O programa desenha duas pétalas! Você consegue explicar por quê?
 
 Tentemos aumentar o número de ângulos para 30:
 
-![](Aula 2/3 pétalas.png){width=50%}
+![⁣](Figuras/2 - Abstrações/pétalas3.pdf){width=50%}
 
 Agora o programa desenhou 3 pétalas. Isso significa que se o número de ângulos (neste caso, 30) for $n$ vezes o número de distâncias (que aqui é 10; ou seja, o número de ângulos é 3 vezes maior que o de distâncias), ele vai me gerar $n$ pétalas.
 
@@ -178,7 +178,7 @@ Agora o programa desenhou 3 pétalas. Isso significa que se o número de ângulo
 
 Para dispor as pétalas em um círculo completo, basta alterar o primeiro `[sample]` (o que determina os valores para os ângulos) para que o parâmetro *End* seja 360°, conforme a figura:
 
-![](Aula 2/flor de 3 pétalas.png){width=50%}
+![⁣](Figuras/2 - Abstrações/pétalas4.pdf){width=60%}
 
 Pronto! Temos nossa flor!
 
@@ -186,7 +186,7 @@ Pronto! Temos nossa flor!
 
 Mas e se o número de ângulos não for múltiplo do número de distâncias? Por exemplo, e se eu gerar 35 ângulos e 10 distâncias? Bom, aí teremos meias pétalas:
 
-![](Aula 2/meias pétalas.png){width=50%}
+![⁣](Figuras/2 - Abstrações/pétalas5.pdf){width=55%}
 
 Para garantir que geraremos apenas pétalas inteiras, precisamos dar um jeito de fazer que a quantidade de ângulos e de distâncias estejam atreladas. Para tanto, vamos definir uma variável.
 
