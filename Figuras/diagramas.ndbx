@@ -4,7 +4,7 @@
     <property name="canvasWidth" value="2000"/>
     <property name="canvasX" value="0"/>
     <property name="canvasY" value="0"/>
-    <node name="root" prototype="core.network" renderedChild="network1">
+    <node name="root" prototype="core.network">
         <node name="Abstracoes" position="9.00,3.00" prototype="core.network" renderedChild="etapa8">
             <node name="etapa1" position="-2.00,1.00" prototype="core.network" renderedChild="show">
                 <node name="coordinates1" position="-6.00,0.00" prototype="math.coordinates">
@@ -25623,339 +25623,6 @@
                 <conn input="translate1.shape" output="stack1"/>
             </node>
         </node>
-        <node name="connection" position="5.00,1.00" prototype="core.network" renderedChild="line1">
-            <node name="line1" position="5.00,4.00" prototype="corevector.line"/>
-            <node name="lower_node" position="8.00,2.00" prototype="core.network" renderedChild="point_on_path1">
-                <node name="first1" position="4.00,0.00" prototype="list.first"/>
-                <node name="point_on_path1" position="6.00,4.00" prototype="corevector.point_on_path">
-                    <port name="t" type="float" value="75.0"/>
-                </node>
-                <node name="port_number" position="8.00,0.00" prototype="math.integer">
-                    <port name="value" type="int" value="1"/>
-                </node>
-                <node name="slice1" position="6.00,3.00" prototype="list.slice">
-                    <port name="size" type="int" value="1"/>
-                </node>
-                <node name="subtract1" position="8.00,1.00" prototype="math.subtract">
-                    <port name="value1" type="float" value="1.0"/>
-                    <port name="value2" type="float" value="1.0"/>
-                </node>
-                <node name="ungroup1" position="4.00,1.00" prototype="corevector.ungroup"/>
-                <port childReference="first1.list" description="The input list." label="" name="node" range="list" type="list" widget="none"/>
-                <port childReference="port_number.value" description="" label="" name="port_number" range="value" type="int" value="1" widget="int"/>
-                <conn input="point_on_path1.shape" output="slice1"/>
-                <conn input="ungroup1.shape" output="first1"/>
-                <conn input="slice1.list" output="ungroup1"/>
-                <conn input="slice1.start_index" output="subtract1"/>
-                <conn input="subtract1.value1" output="port_number"/>
-            </node>
-            <node name="upper_node" position="4.00,2.00" prototype="core.network" renderedChild="point_on_path2">
-                <node name="first1" position="2.00,2.00" prototype="list.first"/>
-                <node name="last2" position="2.00,4.00" prototype="list.last"/>
-                <node name="point_on_path2" position="2.00,5.00" prototype="corevector.point_on_path">
-                    <port name="t" type="float" value="25.0"/>
-                </node>
-                <node name="ungroup1" position="2.00,3.00" prototype="corevector.ungroup"/>
-                <port childReference="first1.list" description="The input list." label="" name="node" range="list" type="list" widget="none"/>
-                <conn input="point_on_path2.shape" output="last2"/>
-                <conn input="ungroup1.shape" output="first1"/>
-                <conn input="last2.list" output="ungroup1"/>
-            </node>
-            <port childReference="lower_node.port_number" description="" label="" name="port_number" range="value" type="int" value="1" widget="int"/>
-            <port childReference="upper_node.node" description="The input list." label="" name="upper node" range="list" type="list" widget="none"/>
-            <port childReference="lower_node.node" description="The input list." label="" name="lower node" range="list" type="list" widget="none"/>
-            <conn input="line1.point1" output="upper_node"/>
-            <conn input="line1.point2" output="lower_node"/>
-        </node>
-        <node name="network1" position="10.00,9.00" prototype="core.network" renderedChild="combine3">
-            <node comment="Acrescenta o número do argumento às informações de publicação" name="add_port_number" position="12.00,8.00" prototype="core.network" renderedChild="make_table1">
-                <node name="combine4" position="16.00,6.00" prototype="list.combine"/>
-                <node name="count1" position="13.00,8.00" prototype="list.count"/>
-                <node name="lookup3" position="16.00,13.00" prototype="data.lookup">
-                    <port name="key" type="string" value="name"/>
-                </node>
-                <node name="lookup4" position="19.00,13.00" prototype="data.lookup">
-                    <port name="key" type="string" value="published_port"/>
-                </node>
-                <node name="make_table1" position="14.00,15.00" prototype="data.make_table">
-                    <port name="headers" type="string" value="number;name;published_port"/>
-                </node>
-                <node name="range1" position="13.00,9.00" prototype="math.range"/>
-                <node name="slice1" position="16.00,11.00" prototype="list.slice">
-                    <port name="size" type="int" value="1"/>
-                </node>
-                <port childReference="combine4.list1" description="The first list." label="" name="publication info" range="list" type="list" widget="none"/>
-                <conn input="count1.list" output="combine4"/>
-                <conn input="slice1.list" output="combine4"/>
-                <conn input="lookup3.list" output="slice1"/>
-                <conn input="lookup4.list" output="slice1"/>
-                <conn input="range1.end" output="count1"/>
-                <conn input="slice1.start_index" output="range1"/>
-                <conn input="make_table1.list2" output="lookup3"/>
-                <conn input="make_table1.list3" output="lookup4"/>
-                <conn input="make_table1.list1" output="range1"/>
-            </node>
-            <node name="chords" position="8.00,14.00" prototype="data.lookup">
-                <port name="key" type="string" value="chords"/>
-            </node>
-            <node name="colorize1" position="7.00,8.00" prototype="corevector.colorize">
-                <port name="fill" type="color" value="#00000000"/>
-                <port name="stroke" type="color" value="#bbbbbbff"/>
-                <port name="strokeWidth" type="float" value="1.0"/>
-            </node>
-            <node name="combine1" position="6.00,9.00" prototype="list.combine"/>
-            <node name="combine2" position="6.00,17.00" prototype="list.combine"/>
-            <node name="combine3" position="12.00,19.00" prototype="list.combine"/>
-            <node name="fit1" position="4.00,6.00" prototype="corevector.fit"/>
-            <node name="group1" position="4.00,4.00" prototype="corevector.group"/>
-            <node name="group2" position="6.00,18.00" prototype="corevector.group"/>
-            <node name="group3" position="6.00,10.00" prototype="corevector.group"/>
-            <node name="multiply1" position="7.00,6.00" prototype="math.multiply">
-                <port name="value2" type="float" value="1.5"/>
-            </node>
-            <node name="name" position="13.00,10.00" prototype="data.lookup">
-                <port name="key" type="string" value="name"/>
-            </node>
-            <node name="names" position="12.00,14.00" prototype="data.lookup">
-                <port name="key" type="string" value="names"/>
-            </node>
-            <node name="number" position="12.00,9.00" prototype="data.lookup">
-                <port name="key" type="string" value="number"/>
-            </node>
-            <node name="number1" position="7.00,4.00" prototype="math.number">
-                <port name="value" type="float" value="100.0"/>
-            </node>
-            <node name="ports" position="6.00,11.00" prototype="core.network" renderedChild="stack1">
-                <node name="combine2" position="0.00,9.00" prototype="list.combine"/>
-                <node name="copy1" position="-3.00,7.00" prototype="corevector.copy">
-                    <port name="copies" type="int" value="4"/>
-                    <port name="translate" type="point" value="10.00,0.00"/>
-                </node>
-                <node name="font_size" position="-1.00,3.00" prototype="math.integer">
-                    <port name="value" type="int" value="23"/>
-                </node>
-                <node name="group2" position="-3.00,8.00" prototype="corevector.group"/>
-                <node name="stack1" position="0.00,10.00" prototype="corevector.stack">
-                    <port name="direction" type="string" value="s"/>
-                    <port name="margin" type="float" value="2.0"/>
-                </node>
-                <node name="textpath2" position="-3.00,5.00" prototype="corevector.textpath">
-                    <port name="text" type="string" value="-"/>
-                    <port name="font_name" type="string" value="CMU Sans Serif Bold Extended"/>
-                    <port name="font_size" type="float" value="28.0"/>
-                    <port name="align" type="string" value="LEFT"/>
-                    <port name="position" type="point" value="-70.00,0.00"/>
-                </node>
-                <node name="textpath3" position="0.00,5.00" prototype="corevector.textpath">
-                    <port name="text" type="string" value="-"/>
-                    <port name="font_name" type="string" value="CMU Sans Serif Bold Extended"/>
-                    <port name="font_size" type="float" value="28.0"/>
-                    <port name="align" type="string" value="LEFT"/>
-                    <port name="position" type="point" value="-70.00,0.00"/>
-                </node>
-                <port childReference="combine2.list2" description="The second list." label="" name="node" range="list" type="list" widget="none"/>
-                <port childReference="copy1.copies" description="The amount of copies." label="" min="1.0" name="number of ports" range="value" type="int" value="4" widget="int"/>
-                <conn input="textpath2.font_size" output="font_size"/>
-                <conn input="copy1.shape" output="textpath2"/>
-                <conn input="group2.shapes" output="copy1"/>
-                <conn input="stack1.shapes" output="combine2"/>
-                <conn input="combine2.list1" output="group2"/>
-                <conn input="textpath3.font_size" output="font_size"/>
-                <conn input="combine2.list3" output="textpath3"/>
-            </node>
-            <node name="publication" position="10.00,13.00" prototype="core.network" renderedChild="make_table1">
-                <node name="color1" position="1.00,14.00" prototype="color.color">
-                    <port name="color" type="color" value="#737373ff"/>
-                </node>
-                <node name="colorize2" position="6.00,16.00" prototype="corevector.colorize">
-                    <port name="fill" type="color" value="#00000000"/>
-                    <port name="stroke" type="color" value="#000071ff"/>
-                    <port name="strokeWidth" type="float" value="1.0"/>
-                </node>
-                <node name="colorize3" position="0.00,16.00" prototype="corevector.colorize">
-                    <port name="fill" type="color" value="#000071ff"/>
-                    <port name="stroke" type="color" value="#000071ff"/>
-                </node>
-                <node name="combine1" position="11.00,11.00" prototype="list.combine"/>
-                <node name="group1" position="11.00,12.00" prototype="corevector.group"/>
-                <node name="line1" position="11.00,9.00" prototype="corevector.line"/>
-                <node name="lookup1" position="0.00,9.00" prototype="data.lookup"/>
-                <node name="make_point1" position="0.00,10.00" prototype="corevector.make_point">
-                    <port name="y" type="float" value="-18.0"/>
-                </node>
-                <node name="make_table1" position="5.00,18.00" prototype="data.make_table">
-                    <port name="headers" type="string" value="chords;names"/>
-                </node>
-                <node name="point_on_path1" position="4.00,11.00" prototype="corevector.point_on_path">
-                    <port name="t" type="float" value="-8.0"/>
-                </node>
-                <node name="position" position="2.00,6.00" prototype="core.network" renderedChild="point_on_path3">
-                    <node name="first1" position="4.00,10.00" prototype="list.first"/>
-                    <node name="point_on_path3" position="6.00,14.00" prototype="corevector.point_on_path">
-                        <port name="t" type="float" value="25.0"/>
-                    </node>
-                    <node name="slice3" position="6.00,13.00" prototype="list.slice">
-                        <port name="size" type="int" value="1"/>
-                    </node>
-                    <node name="ungroup1" position="4.00,11.00" prototype="corevector.ungroup"/>
-                    <port childReference="first1.list" description="The input list." label="" name="ports" range="list" type="list" widget="none"/>
-                    <port childReference="slice3.start_index" description="The starting index in the list." label="" min="0.0" name="object number" range="value" type="int" value="0" widget="int"/>
-                    <conn input="point_on_path3.shape" output="slice3"/>
-                    <conn input="slice3.list" output="ungroup1"/>
-                    <conn input="ungroup1.shape" output="first1"/>
-                </node>
-                <node name="position1" position="6.00,6.00" prototype="core.network" renderedChild="point_on_path3">
-                    <node name="point_on_path3" position="6.00,14.00" prototype="corevector.point_on_path">
-                        <port name="t" type="float" value="75.0"/>
-                    </node>
-                    <node name="slice1" position="4.00,10.00" prototype="list.slice">
-                        <port name="size" type="int" value="1"/>
-                    </node>
-                    <node name="slice3" position="6.00,13.00" prototype="list.slice">
-                        <port name="size" type="int" value="1"/>
-                    </node>
-                    <node name="subtract1" position="7.00,11.00" prototype="math.subtract">
-                        <port name="value1" type="float" value="5.0"/>
-                        <port name="value2" type="float" value="1.0"/>
-                    </node>
-                    <node name="ungroup1" position="4.00,11.00" prototype="corevector.ungroup"/>
-                    <port childReference="slice1.list" description="The input list." label="" name="subnetwork" range="list" type="list" widget="none"/>
-                    <port childReference="subtract1.value1" description="" label="" name="number of object" range="value" type="float" value="5.0" widget="float"/>
-                    <conn input="point_on_path3.shape" output="slice3"/>
-                    <conn input="slice3.list" output="ungroup1"/>
-                    <conn input="slice3.start_index" output="subtract1"/>
-                    <conn input="ungroup1.shape" output="slice1"/>
-                </node>
-                <node name="quad_curve1" position="8.00,9.00" prototype="corevector.quad_curve">
-                    <port name="distance" type="float" value="14.0"/>
-                </node>
-                <node name="textpath1" position="0.00,13.00" prototype="corevector.textpath">
-                    <port name="text" type="string" value="position"/>
-                    <port name="font_name" type="string" value="CMU Serif Italic"/>
-                    <port name="font_size" type="float" value="16.0"/>
-                    <port name="align" type="string" value="LEFT"/>
-                </node>
-                <port childReference="position.ports" description="The input list." label="" name="ports" range="list" type="list" widget="none"/>
-                <port childReference="position1.subnetwork" description="The input list." label="" name="subnetwork" range="list" type="list" widget="none"/>
-                <port childReference="position.object number" description="The starting index in the list." label="" min="0.0" name="port number" range="value" type="int" value="0" widget="int"/>
-                <port childReference="textpath1.text" description="The input text." label="" name="port name" range="value" type="string" value="position" widget="string"/>
-                <port childReference="position1.number of object" description="" label="" name="published object" range="value" type="float" value="5.0" widget="float"/>
-                <conn input="quad_curve1.point1" output="position"/>
-                <conn input="quad_curve1.point2" output="position1"/>
-                <conn input="colorize3.shape" output="textpath1"/>
-                <conn input="lookup1.list" output="position"/>
-                <conn input="make_point1.x" output="lookup1"/>
-                <conn input="textpath1.position" output="make_point1"/>
-                <conn input="make_table1.list2" output="colorize3"/>
-                <conn input="colorize2.stroke" output="color1"/>
-                <conn input="colorize3.fill" output="color1"/>
-                <conn input="line1.point1" output="position"/>
-                <conn input="combine1.list1" output="quad_curve1"/>
-                <conn input="combine1.list2" output="line1"/>
-                <conn input="group1.shapes" output="combine1"/>
-                <conn input="colorize2.shape" output="group1"/>
-                <conn input="make_table1.list1" output="colorize2"/>
-                <conn input="line1.point2" output="point_on_path1"/>
-                <conn input="point_on_path1.shape" output="textpath1"/>
-            </node>
-            <node name="publication_info" position="12.00,7.00" prototype="core.network" renderedChild="cull1">
-                <node name="combine1" position="18.00,12.00" prototype="list.combine"/>
-                <node name="compare1" position="19.00,16.00" prototype="math.compare">
-                    <port name="comparator" type="string" value="&gt;"/>
-                </node>
-                <node name="cull1" position="18.00,17.00" prototype="list.cull"/>
-                <node name="integer1" position="15.00,8.00" prototype="math.integer">
-                    <port name="value" type="int" value="3"/>
-                </node>
-                <node name="integer2" position="19.00,8.00" prototype="math.integer">
-                    <port name="value" type="int" value="4"/>
-                </node>
-                <node name="integer3" position="23.00,8.00" prototype="math.integer"/>
-                <node name="lookup1" position="19.00,13.00" prototype="data.lookup">
-                    <port name="key" type="string" value="name"/>
-                </node>
-                <node name="make_table1" position="14.00,10.00" prototype="data.make_table">
-                    <port name="headers" type="string" value="name;published_port"/>
-                </node>
-                <node name="make_table2" position="18.00,10.00" prototype="data.make_table">
-                    <port name="headers" type="string" value="name;published_port"/>
-                </node>
-                <node name="make_table3" position="22.00,10.00" prototype="data.make_table">
-                    <port name="headers" type="string" value="name;published_port"/>
-                </node>
-                <node name="number1" position="19.00,15.00" prototype="math.number"/>
-                <node name="string1" position="14.00,7.00" prototype="string.string">
-                    <port name="value" type="string" value="position"/>
-                </node>
-                <node name="string2" position="18.00,7.00" prototype="string.string">
-                    <port name="value" type="string" value="port"/>
-                </node>
-                <node name="string3" position="22.00,7.00" prototype="string.string"/>
-                <node name="word_count1" position="19.00,14.00" prototype="string.word_count"/>
-                <port childReference="string1.value" description="" label="" name="first arg name" range="value" type="string" value="position" widget="string"/>
-                <port childReference="integer1.value" description="" label="" name="first published port" range="value" type="int" value="3" widget="int"/>
-                <port childReference="string2.value" description="" label="" name="Second arg name" range="value" type="string" value="port" widget="string"/>
-                <port childReference="integer2.value" description="" label="" name="second published port" range="value" type="int" value="4" widget="int"/>
-                <port childReference="string3.value" description="" label="" name="third arg name" range="value" type="string" value="" widget="string"/>
-                <port childReference="integer3.value" description="" label="" name="third published port" range="value" type="int" value="0" widget="int"/>
-                <conn input="make_table1.list1" output="string1"/>
-                <conn input="make_table1.list2" output="integer1"/>
-                <conn input="combine1.list1" output="make_table1"/>
-                <conn input="make_table2.list1" output="string2"/>
-                <conn input="make_table2.list2" output="integer2"/>
-                <conn input="make_table3.list1" output="string3"/>
-                <conn input="make_table3.list2" output="integer3"/>
-                <conn input="combine1.list2" output="make_table2"/>
-                <conn input="combine1.list3" output="make_table3"/>
-                <conn input="cull1.booleans" output="compare1"/>
-                <conn input="word_count1.string" output="lookup1"/>
-                <conn input="lookup1.list" output="combine1"/>
-                <conn input="cull1.list" output="combine1"/>
-                <conn input="number1.value" output="word_count1"/>
-                <conn input="compare1.value1" output="number1"/>
-            </node>
-            <node name="published_port" position="14.00,11.00" prototype="data.lookup">
-                <port name="key" type="string" value="published_port"/>
-            </node>
-            <node name="rect1" position="7.00,7.00" prototype="corevector.rect">
-                <port name="width" type="float" value="149.0"/>
-                <port name="height" type="float" value="109.0"/>
-            </node>
-            <node name="reverse1" position="13.00,17.00" prototype="list.reverse"/>
-            <node name="stack1" position="11.00,20.00" prototype="corevector.stack">
-                <port name="direction" type="string" value="n"/>
-            </node>
-            <port childReference="group1.shapes" description="The list of shapes to group." label="" name="shapes" range="list" type="geometry" widget="none"/>
-            <conn input="colorize1.shape" output="rect1"/>
-            <conn input="combine1.list2" output="colorize1"/>
-            <conn input="multiply1.value1" output="number1"/>
-            <conn input="rect1.width" output="multiply1"/>
-            <conn input="rect1.height" output="multiply1"/>
-            <conn input="fit1.width" output="number1"/>
-            <conn input="fit1.height" output="number1"/>
-            <conn input="combine1.list1" output="fit1"/>
-            <conn input="fit1.shape" output="group1"/>
-            <conn input="group3.shapes" output="combine1"/>
-            <conn input="combine2.list1" output="ports"/>
-            <conn input="ports.node" output="group3"/>
-            <conn input="group2.shapes" output="combine2"/>
-            <conn input="combine3.list1" output="group2"/>
-            <conn input="stack1.shapes" output="combine3"/>
-            <conn input="number.list" output="add_port_number"/>
-            <conn input="name.list" output="add_port_number"/>
-            <conn input="published_port.list" output="add_port_number"/>
-            <conn input="combine2.list2" output="chords"/>
-            <conn input="add_port_number.publication info" output="publication_info"/>
-            <conn input="chords.list" output="publication"/>
-            <conn input="names.list" output="publication"/>
-            <conn input="publication.ports" output="ports"/>
-            <conn input="publication.subnetwork" output="group3"/>
-            <conn input="publication.port number" output="number"/>
-            <conn input="publication.port name" output="name"/>
-            <conn input="publication.published object" output="published_port"/>
-            <conn input="reverse1.list" output="names"/>
-            <conn input="combine3.list2" output="reverse1"/>
-        </node>
         <node name="node_drawing" position="1.00,1.00" prototype="core.network" renderedChild="combine1">
             <node name="combine1" position="5.00,12.00" prototype="list.combine"/>
             <node name="connections" position="3.00,10.00" prototype="core.network" renderedChild="combine1">
@@ -26323,743 +25990,55 @@
             <conn input="combine1.list2" output="lower_node"/>
             <conn input="combine1.list1" output="connections"/>
         </node>
-        <node name="node_drawing1" position="5.00,7.00" prototype="core.network" renderedChild="combine1">
-            <node name="combine1" position="5.00,12.00" prototype="list.combine"/>
-            <node name="connections" position="3.00,10.00" prototype="core.network" renderedChild="combine1">
-                <node name="combine1" position="5.00,19.00" prototype="list.combine"/>
-                <node name="combine2" position="-5.00,7.00" prototype="list.combine"/>
-                <node name="combine3" position="14.00,14.00" prototype="list.combine"/>
-                <node name="distinct1" position="10.00,16.00" prototype="list.distinct"/>
-                <node name="fifth_conn" position="7.00,14.00" prototype="core.network" renderedChild="line1">
-                    <node name="line1" position="5.00,4.00" prototype="corevector.line"/>
-                    <node name="lower_node" position="8.00,2.00" prototype="core.network" renderedChild="point_on_path1">
-                        <node name="point_on_path1" position="6.00,4.00" prototype="corevector.point_on_path">
-                            <port name="t" type="float" value="75.0"/>
-                        </node>
-                        <node name="port_number" position="8.00,0.00" prototype="math.integer">
-                            <port name="value" type="int" value="5"/>
-                        </node>
-                        <node name="slice1" position="6.00,3.00" prototype="list.slice">
-                            <port name="size" type="int" value="1"/>
-                        </node>
-                        <node name="ungroup1" position="4.00,1.00" prototype="corevector.ungroup"/>
-                        <port childReference="ungroup1.shape" description="The input shape." label="" name="node" range="value" type="geometry" widget="none"/>
-                        <port childReference="port_number.value" description="" label="" name="port_number" range="value" type="int" value="5" widget="int"/>
-                        <conn input="point_on_path1.shape" output="slice1"/>
-                        <conn input="slice1.list" output="ungroup1"/>
-                        <conn input="slice1.start_index" output="port_number"/>
-                    </node>
-                    <node name="upper_node" position="4.00,2.00" prototype="core.network" renderedChild="point_on_path2">
-                        <node name="last2" position="2.00,4.00" prototype="list.last"/>
-                        <node name="point_on_path2" position="2.00,5.00" prototype="corevector.point_on_path">
-                            <port name="t" type="float" value="25.0"/>
-                        </node>
-                        <node name="ungroup1" position="2.00,3.00" prototype="corevector.ungroup"/>
-                        <port childReference="ungroup1.shape" description="The input shape." label="" name="node" range="value" type="geometry" widget="none"/>
-                        <conn input="point_on_path2.shape" output="last2"/>
-                        <conn input="last2.list" output="ungroup1"/>
-                    </node>
-                    <port childReference="upper_node.node" description="The input shape." label="" name="upper_node" range="value" type="geometry" widget="none"/>
-                    <port childReference="lower_node.node" description="The input shape." label="" name="lower_node" range="value" type="geometry" widget="none"/>
-                    <port childReference="lower_node.port_number" description="" label="" name="port_number" range="value" type="int" value="5" widget="int"/>
-                    <conn input="line1.point1" output="upper_node"/>
-                    <conn input="line1.point2" output="lower_node"/>
-                </node>
-                <node name="first_conn" position="-5.00,14.00" prototype="core.network" renderedChild="line1">
-                    <node name="line1" position="5.00,4.00" prototype="corevector.line"/>
-                    <node name="lower_node" position="8.00,2.00" prototype="core.network" renderedChild="point_on_path1">
-                        <node name="point_on_path1" position="6.00,4.00" prototype="corevector.point_on_path">
-                            <port name="t" type="float" value="75.0"/>
-                        </node>
-                        <node name="port_number" position="8.00,0.00" prototype="math.integer">
-                            <port name="value" type="int" value="1"/>
-                        </node>
-                        <node name="slice1" position="6.00,3.00" prototype="list.slice">
-                            <port name="size" type="int" value="1"/>
-                        </node>
-                        <node name="ungroup1" position="4.00,1.00" prototype="corevector.ungroup"/>
-                        <port childReference="ungroup1.shape" description="The input shape." label="" name="node" range="value" type="geometry" widget="none"/>
-                        <port childReference="port_number.value" description="" label="" name="port_number" range="value" type="int" value="1" widget="int"/>
-                        <conn input="point_on_path1.shape" output="slice1"/>
-                        <conn input="slice1.list" output="ungroup1"/>
-                        <conn input="slice1.start_index" output="port_number"/>
-                    </node>
-                    <node name="upper_node" position="4.00,2.00" prototype="core.network" renderedChild="point_on_path2">
-                        <node name="last2" position="2.00,4.00" prototype="list.last"/>
-                        <node name="point_on_path2" position="2.00,5.00" prototype="corevector.point_on_path">
-                            <port name="t" type="float" value="25.0"/>
-                        </node>
-                        <node name="ungroup1" position="2.00,3.00" prototype="corevector.ungroup"/>
-                        <port childReference="ungroup1.shape" description="The input shape." label="" name="node" range="value" type="geometry" widget="none"/>
-                        <conn input="point_on_path2.shape" output="last2"/>
-                        <conn input="last2.list" output="ungroup1"/>
-                    </node>
-                    <port childReference="upper_node.node" description="The input shape." label="" name="upper_node" range="value" type="geometry" widget="none"/>
-                    <port childReference="lower_node.node" description="The input shape." label="" name="lower_node" range="value" type="geometry" widget="none"/>
-                    <port childReference="lower_node.port_number" description="" label="" name="port_number" range="value" type="int" value="1" widget="int"/>
-                    <conn input="line1.point1" output="upper_node"/>
-                    <conn input="line1.point2" output="lower_node"/>
-                </node>
-                <node name="fourth_conn" position="4.00,14.00" prototype="core.network" renderedChild="line1">
-                    <node name="line1" position="5.00,4.00" prototype="corevector.line"/>
-                    <node name="lower_node" position="8.00,2.00" prototype="core.network" renderedChild="point_on_path1">
-                        <node name="point_on_path1" position="6.00,4.00" prototype="corevector.point_on_path">
-                            <port name="t" type="float" value="75.0"/>
-                        </node>
-                        <node name="port_number" position="8.00,0.00" prototype="math.integer">
-                            <port name="value" type="int" value="4"/>
-                        </node>
-                        <node name="slice1" position="6.00,3.00" prototype="list.slice">
-                            <port name="size" type="int" value="1"/>
-                        </node>
-                        <node name="ungroup1" position="4.00,1.00" prototype="corevector.ungroup"/>
-                        <port childReference="ungroup1.shape" description="The input shape." label="" name="node" range="value" type="geometry" widget="none"/>
-                        <port childReference="port_number.value" description="" label="" name="port_number" range="value" type="int" value="4" widget="int"/>
-                        <conn input="point_on_path1.shape" output="slice1"/>
-                        <conn input="slice1.list" output="ungroup1"/>
-                        <conn input="slice1.start_index" output="port_number"/>
-                    </node>
-                    <node name="upper_node" position="4.00,2.00" prototype="core.network" renderedChild="point_on_path2">
-                        <node name="last2" position="2.00,4.00" prototype="list.last"/>
-                        <node name="point_on_path2" position="2.00,5.00" prototype="corevector.point_on_path">
-                            <port name="t" type="float" value="25.0"/>
-                        </node>
-                        <node name="ungroup1" position="2.00,3.00" prototype="corevector.ungroup"/>
-                        <port childReference="ungroup1.shape" description="The input shape." label="" name="node" range="value" type="geometry" widget="none"/>
-                        <conn input="point_on_path2.shape" output="last2"/>
-                        <conn input="last2.list" output="ungroup1"/>
-                    </node>
-                    <port childReference="upper_node.node" description="The input shape." label="" name="upper_node" range="value" type="geometry" widget="none"/>
-                    <port childReference="lower_node.node" description="The input shape." label="" name="lower_node" range="value" type="geometry" widget="none"/>
-                    <port childReference="lower_node.port_number" description="" label="" name="port_number" range="value" type="int" value="4" widget="int"/>
-                    <conn input="line1.point1" output="upper_node"/>
-                    <conn input="line1.point2" output="lower_node"/>
-                </node>
-                <node name="last1" position="-5.00,13.00" prototype="list.last"/>
-                <node name="last2" position="-2.00,13.00" prototype="list.last"/>
-                <node name="last3" position="1.00,13.00" prototype="list.last"/>
-                <node name="last4" position="4.00,13.00" prototype="list.last"/>
-                <node name="last5" position="7.00,13.00" prototype="list.last"/>
-                <node name="last6" position="10.00,13.00" prototype="list.last"/>
-                <node name="second_conn" position="-2.00,14.00" prototype="core.network" renderedChild="line1">
-                    <node name="line1" position="5.00,4.00" prototype="corevector.line"/>
-                    <node name="lower_node" position="8.00,2.00" prototype="core.network" renderedChild="point_on_path1">
-                        <node name="point_on_path1" position="6.00,4.00" prototype="corevector.point_on_path">
-                            <port name="t" type="float" value="75.0"/>
-                        </node>
-                        <node name="port_number" position="8.00,0.00" prototype="math.integer">
-                            <port name="value" type="int" value="2"/>
-                        </node>
-                        <node name="slice1" position="6.00,3.00" prototype="list.slice">
-                            <port name="size" type="int" value="1"/>
-                        </node>
-                        <node name="ungroup1" position="4.00,1.00" prototype="corevector.ungroup"/>
-                        <port childReference="ungroup1.shape" description="The input shape." label="" name="node" range="value" type="geometry" widget="none"/>
-                        <port childReference="port_number.value" description="" label="" name="port_number" range="value" type="int" value="2" widget="int"/>
-                        <conn input="point_on_path1.shape" output="slice1"/>
-                        <conn input="slice1.list" output="ungroup1"/>
-                        <conn input="slice1.start_index" output="port_number"/>
-                    </node>
-                    <node name="upper_node" position="4.00,2.00" prototype="core.network" renderedChild="point_on_path2">
-                        <node name="last2" position="2.00,4.00" prototype="list.last"/>
-                        <node name="point_on_path2" position="2.00,5.00" prototype="corevector.point_on_path">
-                            <port name="t" type="float" value="25.0"/>
-                        </node>
-                        <node name="ungroup1" position="2.00,3.00" prototype="corevector.ungroup"/>
-                        <port childReference="ungroup1.shape" description="The input shape." label="" name="node" range="value" type="geometry" widget="none"/>
-                        <conn input="point_on_path2.shape" output="last2"/>
-                        <conn input="last2.list" output="ungroup1"/>
-                    </node>
-                    <port childReference="upper_node.node" description="The input shape." label="" name="upper_node" range="value" type="geometry" widget="none"/>
-                    <port childReference="lower_node.node" description="The input shape." label="" name="lower_node" range="value" type="geometry" widget="none"/>
-                    <port childReference="lower_node.port_number" description="" label="" name="port_number" range="value" type="int" value="2" widget="int"/>
-                    <conn input="line1.point1" output="upper_node"/>
-                    <conn input="line1.point2" output="lower_node"/>
-                </node>
-                <node name="sixth_conn" position="10.00,14.00" prototype="core.network" renderedChild="line1">
-                    <node name="line1" position="5.00,4.00" prototype="corevector.line"/>
-                    <node name="lower_node" position="8.00,2.00" prototype="core.network" renderedChild="point_on_path1">
-                        <node name="point_on_path1" position="6.00,4.00" prototype="corevector.point_on_path">
-                            <port name="t" type="float" value="75.0"/>
-                        </node>
-                        <node name="port_number" position="8.00,0.00" prototype="math.integer">
-                            <port name="value" type="int" value="6"/>
-                        </node>
-                        <node name="slice1" position="6.00,3.00" prototype="list.slice">
-                            <port name="size" type="int" value="1"/>
-                        </node>
-                        <node name="ungroup1" position="4.00,1.00" prototype="corevector.ungroup"/>
-                        <port childReference="ungroup1.shape" description="The input shape." label="" name="node" range="value" type="geometry" widget="none"/>
-                        <port childReference="port_number.value" description="" label="" name="port_number" range="value" type="int" value="6" widget="int"/>
-                        <conn input="point_on_path1.shape" output="slice1"/>
-                        <conn input="slice1.list" output="ungroup1"/>
-                        <conn input="slice1.start_index" output="port_number"/>
-                    </node>
-                    <node name="upper_node" position="4.00,2.00" prototype="core.network" renderedChild="point_on_path2">
-                        <node name="last2" position="2.00,4.00" prototype="list.last"/>
-                        <node name="point_on_path2" position="2.00,5.00" prototype="corevector.point_on_path">
-                            <port name="t" type="float" value="25.0"/>
-                        </node>
-                        <node name="ungroup1" position="2.00,3.00" prototype="corevector.ungroup"/>
-                        <port childReference="ungroup1.shape" description="The input shape." label="" name="node" range="value" type="geometry" widget="none"/>
-                        <conn input="point_on_path2.shape" output="last2"/>
-                        <conn input="last2.list" output="ungroup1"/>
-                    </node>
-                    <port childReference="upper_node.node" description="The input shape." label="" name="upper_node" range="value" type="geometry" widget="none"/>
-                    <port childReference="lower_node.node" description="The input shape." label="" name="lower_node" range="value" type="geometry" widget="none"/>
-                    <port childReference="lower_node.port_number" description="" label="" name="port_number" range="value" type="int" value="6" widget="int"/>
-                    <conn input="line1.point1" output="upper_node"/>
-                    <conn input="line1.point2" output="lower_node"/>
-                </node>
-                <node comment="Como não há variável para lista, tenho que fazer esta gambiarra" name="take_every1" position="-2.00,7.00" prototype="list.take_every"/>
-                <node name="take_every2" position="1.00,7.00" prototype="list.take_every"/>
-                <node name="take_every3" position="4.00,7.00" prototype="list.take_every"/>
-                <node name="take_every4" position="7.00,7.00" prototype="list.take_every"/>
-                <node name="take_every5" position="10.00,7.00" prototype="list.take_every"/>
-                <node name="take_every6" position="13.00,7.00" prototype="list.take_every"/>
-                <node name="third_conn" position="1.00,14.00" prototype="core.network" renderedChild="line1">
-                    <node name="line1" position="5.00,4.00" prototype="corevector.line"/>
-                    <node name="lower_node" position="8.00,2.00" prototype="core.network" renderedChild="point_on_path1">
-                        <node name="point_on_path1" position="6.00,4.00" prototype="corevector.point_on_path">
-                            <port name="t" type="float" value="75.0"/>
-                        </node>
-                        <node name="port_number" position="8.00,0.00" prototype="math.integer">
-                            <port name="value" type="int" value="3"/>
-                        </node>
-                        <node name="slice1" position="6.00,3.00" prototype="list.slice">
-                            <port name="size" type="int" value="1"/>
-                        </node>
-                        <node name="ungroup1" position="4.00,1.00" prototype="corevector.ungroup"/>
-                        <port childReference="ungroup1.shape" description="The input shape." label="" name="node" range="value" type="geometry" widget="none"/>
-                        <port childReference="port_number.value" description="" label="" name="port_number" range="value" type="int" value="3" widget="int"/>
-                        <conn input="point_on_path1.shape" output="slice1"/>
-                        <conn input="slice1.list" output="ungroup1"/>
-                        <conn input="slice1.start_index" output="port_number"/>
-                    </node>
-                    <node name="upper_node" position="4.00,2.00" prototype="core.network" renderedChild="point_on_path2">
-                        <node name="last2" position="2.00,4.00" prototype="list.last"/>
-                        <node name="point_on_path2" position="2.00,5.00" prototype="corevector.point_on_path">
-                            <port name="t" type="float" value="25.0"/>
-                        </node>
-                        <node name="ungroup1" position="2.00,3.00" prototype="corevector.ungroup"/>
-                        <port childReference="ungroup1.shape" description="The input shape." label="" name="node" range="value" type="geometry" widget="none"/>
-                        <conn input="point_on_path2.shape" output="last2"/>
-                        <conn input="last2.list" output="ungroup1"/>
-                    </node>
-                    <port childReference="upper_node.node" description="The input shape." label="" name="upper_node" range="value" type="geometry" widget="none"/>
-                    <port childReference="lower_node.node" description="The input shape." label="" name="lower_node" range="value" type="geometry" widget="none"/>
-                    <port childReference="lower_node.port_number" description="" label="" name="port_number" range="value" type="int" value="3" widget="int"/>
-                    <conn input="line1.point1" output="upper_node"/>
-                    <conn input="line1.point2" output="lower_node"/>
-                </node>
-                <port childReference="combine2.list1" description="The first list." label="" name="lower node" range="list" type="list" widget="none"/>
-                <port childReference="take_every1.list" description="The input list." label="" name="first connection" range="list" type="list" widget="none"/>
-                <port childReference="take_every2.list" description="The input list." label="" name="second connection" range="list" type="list" widget="none"/>
-                <port childReference="take_every3.list" description="The input list." label="" name="third connection" range="list" type="list" widget="none"/>
-                <port childReference="take_every4.list" description="The input list." label="" name="fourth connection" range="list" type="list" widget="none"/>
-                <port childReference="take_every5.list" description="The input list." label="" name="fifth connection" range="list" type="list" widget="none"/>
-                <port childReference="take_every6.list" description="The input list." label="" name="sixth connection" range="list" type="list" widget="none"/>
-                <conn input="combine1.list1" output="first_conn"/>
-                <conn input="distinct1.list" output="combine3"/>
-                <conn input="combine1.list7" output="distinct1"/>
-                <conn input="first_conn.lower_node" output="combine2"/>
-                <conn input="second_conn.lower_node" output="combine2"/>
-                <conn input="third_conn.lower_node" output="combine2"/>
-                <conn input="fourth_conn.lower_node" output="combine2"/>
-                <conn input="fifth_conn.lower_node" output="combine2"/>
-                <conn input="sixth_conn.lower_node" output="combine2"/>
-                <conn input="combine1.list2" output="second_conn"/>
-                <conn input="combine1.list3" output="third_conn"/>
-                <conn input="combine1.list4" output="fourth_conn"/>
-                <conn input="combine1.list5" output="fifth_conn"/>
-                <conn input="combine1.list6" output="sixth_conn"/>
-                <conn input="first_conn.upper_node" output="last1"/>
-                <conn input="second_conn.upper_node" output="last2"/>
-                <conn input="third_conn.upper_node" output="last3"/>
-                <conn input="fourth_conn.upper_node" output="last4"/>
-                <conn input="fifth_conn.upper_node" output="last5"/>
-                <conn input="sixth_conn.upper_node" output="last6"/>
-                <conn input="last1.list" output="take_every1"/>
-                <conn input="combine3.list1" output="take_every1"/>
-                <conn input="last2.list" output="take_every2"/>
-                <conn input="combine3.list2" output="take_every2"/>
-                <conn input="last3.list" output="take_every3"/>
-                <conn input="combine3.list3" output="take_every3"/>
-                <conn input="last4.list" output="take_every4"/>
-                <conn input="combine3.list4" output="take_every4"/>
-                <conn input="last5.list" output="take_every5"/>
-                <conn input="combine3.list5" output="take_every5"/>
-                <conn input="last6.list" output="take_every6"/>
-                <conn input="combine3.list6" output="take_every6"/>
+        <node name="pub_info" position="14.00,1.00" prototype="core.network" renderedChild="cull1">
+            <node name="combine1" position="18.00,12.00" prototype="list.combine"/>
+            <node name="compare1" position="19.00,16.00" prototype="math.compare">
+                <port name="comparator" type="string" value="&gt;"/>
             </node>
-            <node name="lower_node" position="7.00,8.00" prototype="core.network" renderedChild="group2">
-                <node name="align1" position="-1.00,1.00" prototype="corevector.align">
-                    <port name="valign" type="string" value="top"/>
-                </node>
-                <node name="arguments" position="-1.00,-1.00" prototype="corevector.textpath">
-                    <port name="text" type="string" value=""/>
-                    <port name="font_name" type="string" value="CMU Serif Italic"/>
-                    <port name="font_size" type="float" value="20.0"/>
-                    <port name="align" type="string" value="LEFT"/>
-                </node>
-                <node name="colorize1" position="-1.00,0.00" prototype="corevector.colorize">
-                    <port name="fill" type="color" value="#575757ff"/>
-                </node>
-                <node name="combine1" position="-2.00,4.00" prototype="list.combine"/>
-                <node name="group1" position="-5.00,2.00" prototype="corevector.group"/>
-                <node name="group2" position="-3.00,9.00" prototype="corevector.group"/>
-                <node name="node_text" position="-5.00,-1.00" prototype="string.concatenate">
-                    <port name="string1" type="string" value="["/>
-                    <port name="string2" type="string" value="coordinates"/>
-                    <port name="string3" type="string" value="]"/>
-                </node>
-                <node name="ports" position="-6.00,1.00" prototype="core.network" renderedChild="stack1">
-                    <node name="combine1" position="3.00,7.00" prototype="list.combine"/>
-                    <node name="copy1" position="-2.00,4.00" prototype="corevector.copy">
-                        <port name="copies" type="int" value="3"/>
-                        <port name="translate" type="point" value="10.00,0.00"/>
-                    </node>
-                    <node name="font_size" position="4.00,1.00" prototype="math.integer">
-                        <port name="value" type="int" value="23"/>
-                    </node>
-                    <node name="group1" position="-2.00,5.00" prototype="corevector.group"/>
-                    <node name="stack1" position="3.00,8.00" prototype="corevector.stack">
-                        <port name="direction" type="string" value="s"/>
-                        <port name="margin" type="float" value="2.0"/>
-                    </node>
-                    <node name="textpath2" position="-2.00,3.00" prototype="corevector.textpath">
-                        <port name="text" type="string" value="-"/>
-                        <port name="font_name" type="string" value="CMU Sans Serif Bold Extended"/>
-                        <port name="font_size" type="float" value="28.0"/>
-                        <port name="align" type="string" value="LEFT"/>
-                        <port name="position" type="point" value="6.00,0.00"/>
-                    </node>
-                    <node name="textpath3" position="7.00,3.00" prototype="corevector.textpath">
-                        <port name="text" type="string" value="-"/>
-                        <port name="font_name" type="string" value="CMU Sans Serif Bold Extended"/>
-                        <port name="font_size" type="float" value="28.0"/>
-                        <port name="align" type="string" value="LEFT"/>
-                        <port name="position" type="point" value="6.00,0.00"/>
-                    </node>
-                    <port childReference="combine1.list2" description="The second list." label="" name="node" range="list" type="list" widget="none"/>
-                    <port childReference="copy1.copies" description="The amount of copies." label="" min="1.0" name="number of inputs" range="value" type="int" value="3" widget="int"/>
-                    <conn input="stack1.shapes" output="combine1"/>
-                    <conn input="combine1.list3" output="textpath3"/>
-                    <conn input="textpath2.font_size" output="font_size"/>
-                    <conn input="textpath3.font_size" output="font_size"/>
-                    <conn input="copy1.shape" output="textpath2"/>
-                    <conn input="group1.shapes" output="copy1"/>
-                    <conn input="combine1.list1" output="group1"/>
-                </node>
-                <node name="reverse1" position="-2.00,6.00" prototype="list.reverse"/>
-                <node name="stack1" position="-2.00,5.00" prototype="corevector.stack">
-                    <port name="margin" type="float" value="13.0"/>
-                </node>
-                <node name="textpath1" position="-5.00,0.00" prototype="corevector.textpath">
-                    <port name="font_name" type="string" value="CMU Serif Roman"/>
-                    <port name="align" type="string" value="LEFT"/>
-                </node>
-                <node name="translate1" position="-3.00,8.00" prototype="corevector.translate">
-                    <port name="translate" type="point" value="3.00,50.00"/>
-                </node>
-                <port childReference="translate1.translate" description="The amount of translation." label="" name="position" range="value" type="point" value="3.00,50.00" widget="point"/>
-                <port childReference="node_text.string2" description="" label="" name="name" range="value" type="string" value="coordinates" widget="string"/>
-                <port childReference="ports.number of inputs" description="The amount of copies." label="" min="1.0" name="number of inputs" range="value" type="int" value="3" widget="int"/>
-                <port childReference="arguments.text" description="The input text." label="" name="arguments" range="value" type="string" value="" widget="string"/>
-                <conn input="ports.node" output="textpath1"/>
-                <conn input="colorize1.shape" output="arguments"/>
-                <conn input="group1.shapes" output="ports"/>
-                <conn input="stack1.shapes" output="combine1"/>
-                <conn input="align1.shape" output="colorize1"/>
-                <conn input="textpath1.text" output="node_text"/>
-                <conn input="group2.shapes" output="translate1"/>
-                <conn input="combine1.list1" output="group1"/>
-                <conn input="combine1.list2" output="align1"/>
-                <conn input="reverse1.list" output="stack1"/>
-                <conn input="translate1.shape" output="reverse1"/>
+            <node name="cull1" position="18.00,17.00" prototype="list.cull"/>
+            <node name="integer1" position="15.00,8.00" prototype="math.integer"/>
+            <node name="integer2" position="19.00,8.00" prototype="math.integer"/>
+            <node name="integer3" position="23.00,8.00" prototype="math.integer"/>
+            <node name="lookup1" position="19.00,13.00" prototype="data.lookup">
+                <port name="key" type="string" value="name"/>
             </node>
-            <port childReference="lower_node.position" description="The amount of translation." label="" name="position" range="value" type="point" value="3.00,50.00" widget="point"/>
-            <port childReference="lower_node.name" description="" label="" name="name" range="value" type="string" value="coordinates" widget="string"/>
-            <port childReference="lower_node.number of inputs" description="The amount of copies." label="" min="1.0" name="number of inputs" range="value" type="int" value="3" widget="int"/>
-            <port childReference="lower_node.arguments" description="The input text." label="" name="arguments" range="value" type="string" value="" widget="string"/>
-            <port childReference="connections.first connection" description="The input list." label="" name="first connection" range="list" type="list" widget="none"/>
-            <port childReference="connections.second connection" description="The input list." label="" name="second connection" range="list" type="list" widget="none"/>
-            <port childReference="connections.third connection" description="The input list." label="" name="third connection" range="list" type="list" widget="none"/>
-            <port childReference="connections.fourth connection" description="The input list." label="" name="fourth connection" range="list" type="list" widget="none"/>
-            <port childReference="connections.fifth connection" description="The input list." label="" name="fifth connection" range="list" type="list" widget="none"/>
-            <port childReference="connections.sixth connection" description="The input list." label="" name="sixth connection" range="list" type="list" widget="none"/>
-            <conn input="connections.lower node" output="lower_node"/>
-            <conn input="combine1.list2" output="lower_node"/>
-            <conn input="combine1.list1" output="connections"/>
+            <node name="make_table1" position="14.00,10.00" prototype="data.make_table">
+                <port name="headers" type="string" value="name;published_port"/>
+            </node>
+            <node name="make_table2" position="18.00,10.00" prototype="data.make_table">
+                <port name="headers" type="string" value="name;published_port"/>
+            </node>
+            <node name="make_table3" position="22.00,10.00" prototype="data.make_table">
+                <port name="headers" type="string" value="name;published_port"/>
+            </node>
+            <node name="number1" position="19.00,15.00" prototype="math.number"/>
+            <node name="string1" position="14.00,7.00" prototype="string.string"/>
+            <node name="string2" position="18.00,7.00" prototype="string.string"/>
+            <node name="string3" position="22.00,7.00" prototype="string.string"/>
+            <node name="word_count1" position="19.00,14.00" prototype="string.word_count"/>
+            <port childReference="string1.value" description="" label="" name="Arg name 1" range="value" type="string" value="" widget="string"/>
+            <port childReference="integer1.value" description="" label="" name="published port 1" range="value" type="int" value="0" widget="int"/>
+            <port childReference="string2.value" description="" label="" name="Arg name 2" range="value" type="string" value="" widget="string"/>
+            <port childReference="integer2.value" description="" label="" name="published port 2" range="value" type="int" value="0" widget="int"/>
+            <port childReference="string3.value" description="" label="" name="arg name 3" range="value" type="string" value="" widget="string"/>
+            <port childReference="integer3.value" description="" label="" name="published port 3" range="value" type="int" value="0" widget="int"/>
+            <conn input="make_table1.list1" output="string1"/>
+            <conn input="make_table1.list2" output="integer1"/>
+            <conn input="combine1.list1" output="make_table1"/>
+            <conn input="make_table2.list1" output="string2"/>
+            <conn input="make_table2.list2" output="integer2"/>
+            <conn input="make_table3.list1" output="string3"/>
+            <conn input="make_table3.list2" output="integer3"/>
+            <conn input="combine1.list2" output="make_table2"/>
+            <conn input="combine1.list3" output="make_table3"/>
+            <conn input="cull1.booleans" output="compare1"/>
+            <conn input="word_count1.string" output="lookup1"/>
+            <conn input="lookup1.list" output="combine1"/>
+            <conn input="cull1.list" output="combine1"/>
+            <conn input="number1.value" output="word_count1"/>
+            <conn input="compare1.value1" output="number1"/>
         </node>
-        <node name="node_drawing2" position="6.00,5.00" prototype="core.network" renderedChild="combine1">
-            <node name="combine1" position="5.00,12.00" prototype="list.combine"/>
-            <node name="connections" position="3.00,10.00" prototype="core.network" renderedChild="combine1">
-                <node name="combine1" position="5.00,19.00" prototype="list.combine"/>
-                <node name="combine2" position="-5.00,7.00" prototype="list.combine"/>
-                <node name="combine3" position="14.00,14.00" prototype="list.combine"/>
-                <node name="distinct1" position="10.00,16.00" prototype="list.distinct"/>
-                <node name="fifth_conn" position="7.00,14.00" prototype="core.network" renderedChild="line1">
-                    <node name="line1" position="5.00,4.00" prototype="corevector.line"/>
-                    <node name="lower_node" position="8.00,2.00" prototype="core.network" renderedChild="point_on_path1">
-                        <node name="point_on_path1" position="6.00,4.00" prototype="corevector.point_on_path">
-                            <port name="t" type="float" value="75.0"/>
-                        </node>
-                        <node name="port_number" position="8.00,0.00" prototype="math.integer">
-                            <port name="value" type="int" value="5"/>
-                        </node>
-                        <node name="slice1" position="6.00,3.00" prototype="list.slice">
-                            <port name="size" type="int" value="1"/>
-                        </node>
-                        <node name="ungroup1" position="4.00,1.00" prototype="corevector.ungroup"/>
-                        <port childReference="ungroup1.shape" description="The input shape." label="" name="node" range="value" type="geometry" widget="none"/>
-                        <port childReference="port_number.value" description="" label="" name="port_number" range="value" type="int" value="5" widget="int"/>
-                        <conn input="point_on_path1.shape" output="slice1"/>
-                        <conn input="slice1.list" output="ungroup1"/>
-                        <conn input="slice1.start_index" output="port_number"/>
-                    </node>
-                    <node name="upper_node" position="4.00,2.00" prototype="core.network" renderedChild="point_on_path2">
-                        <node name="last2" position="2.00,4.00" prototype="list.last"/>
-                        <node name="point_on_path2" position="2.00,5.00" prototype="corevector.point_on_path">
-                            <port name="t" type="float" value="25.0"/>
-                        </node>
-                        <node name="ungroup1" position="2.00,3.00" prototype="corevector.ungroup"/>
-                        <port childReference="ungroup1.shape" description="The input shape." label="" name="node" range="value" type="geometry" widget="none"/>
-                        <conn input="point_on_path2.shape" output="last2"/>
-                        <conn input="last2.list" output="ungroup1"/>
-                    </node>
-                    <port childReference="upper_node.node" description="The input shape." label="" name="upper_node" range="value" type="geometry" widget="none"/>
-                    <port childReference="lower_node.node" description="The input shape." label="" name="lower_node" range="value" type="geometry" widget="none"/>
-                    <port childReference="lower_node.port_number" description="" label="" name="port_number" range="value" type="int" value="5" widget="int"/>
-                    <conn input="line1.point1" output="upper_node"/>
-                    <conn input="line1.point2" output="lower_node"/>
-                </node>
-                <node name="first_conn" position="-5.00,14.00" prototype="core.network" renderedChild="line1">
-                    <node name="line1" position="5.00,4.00" prototype="corevector.line"/>
-                    <node name="lower_node" position="8.00,2.00" prototype="core.network" renderedChild="point_on_path1">
-                        <node name="point_on_path1" position="6.00,4.00" prototype="corevector.point_on_path">
-                            <port name="t" type="float" value="75.0"/>
-                        </node>
-                        <node name="port_number" position="8.00,0.00" prototype="math.integer">
-                            <port name="value" type="int" value="1"/>
-                        </node>
-                        <node name="slice1" position="6.00,3.00" prototype="list.slice">
-                            <port name="size" type="int" value="1"/>
-                        </node>
-                        <node name="ungroup1" position="4.00,1.00" prototype="corevector.ungroup"/>
-                        <port childReference="ungroup1.shape" description="The input shape." label="" name="node" range="value" type="geometry" widget="none"/>
-                        <port childReference="port_number.value" description="" label="" name="port_number" range="value" type="int" value="1" widget="int"/>
-                        <conn input="point_on_path1.shape" output="slice1"/>
-                        <conn input="slice1.list" output="ungroup1"/>
-                        <conn input="slice1.start_index" output="port_number"/>
-                    </node>
-                    <node name="upper_node" position="4.00,2.00" prototype="core.network" renderedChild="point_on_path2">
-                        <node name="last2" position="2.00,4.00" prototype="list.last"/>
-                        <node name="point_on_path2" position="2.00,5.00" prototype="corevector.point_on_path">
-                            <port name="t" type="float" value="25.0"/>
-                        </node>
-                        <node name="ungroup1" position="2.00,3.00" prototype="corevector.ungroup"/>
-                        <port childReference="ungroup1.shape" description="The input shape." label="" name="node" range="value" type="geometry" widget="none"/>
-                        <conn input="point_on_path2.shape" output="last2"/>
-                        <conn input="last2.list" output="ungroup1"/>
-                    </node>
-                    <port childReference="upper_node.node" description="The input shape." label="" name="upper_node" range="value" type="geometry" widget="none"/>
-                    <port childReference="lower_node.node" description="The input shape." label="" name="lower_node" range="value" type="geometry" widget="none"/>
-                    <port childReference="lower_node.port_number" description="" label="" name="port_number" range="value" type="int" value="1" widget="int"/>
-                    <conn input="line1.point1" output="upper_node"/>
-                    <conn input="line1.point2" output="lower_node"/>
-                </node>
-                <node name="fourth_conn" position="4.00,14.00" prototype="core.network" renderedChild="line1">
-                    <node name="line1" position="5.00,4.00" prototype="corevector.line"/>
-                    <node name="lower_node" position="8.00,2.00" prototype="core.network" renderedChild="point_on_path1">
-                        <node name="point_on_path1" position="6.00,4.00" prototype="corevector.point_on_path">
-                            <port name="t" type="float" value="75.0"/>
-                        </node>
-                        <node name="port_number" position="8.00,0.00" prototype="math.integer">
-                            <port name="value" type="int" value="4"/>
-                        </node>
-                        <node name="slice1" position="6.00,3.00" prototype="list.slice">
-                            <port name="size" type="int" value="1"/>
-                        </node>
-                        <node name="ungroup1" position="4.00,1.00" prototype="corevector.ungroup"/>
-                        <port childReference="ungroup1.shape" description="The input shape." label="" name="node" range="value" type="geometry" widget="none"/>
-                        <port childReference="port_number.value" description="" label="" name="port_number" range="value" type="int" value="4" widget="int"/>
-                        <conn input="point_on_path1.shape" output="slice1"/>
-                        <conn input="slice1.list" output="ungroup1"/>
-                        <conn input="slice1.start_index" output="port_number"/>
-                    </node>
-                    <node name="upper_node" position="4.00,2.00" prototype="core.network" renderedChild="point_on_path2">
-                        <node name="last2" position="2.00,4.00" prototype="list.last"/>
-                        <node name="point_on_path2" position="2.00,5.00" prototype="corevector.point_on_path">
-                            <port name="t" type="float" value="25.0"/>
-                        </node>
-                        <node name="ungroup1" position="2.00,3.00" prototype="corevector.ungroup"/>
-                        <port childReference="ungroup1.shape" description="The input shape." label="" name="node" range="value" type="geometry" widget="none"/>
-                        <conn input="point_on_path2.shape" output="last2"/>
-                        <conn input="last2.list" output="ungroup1"/>
-                    </node>
-                    <port childReference="upper_node.node" description="The input shape." label="" name="upper_node" range="value" type="geometry" widget="none"/>
-                    <port childReference="lower_node.node" description="The input shape." label="" name="lower_node" range="value" type="geometry" widget="none"/>
-                    <port childReference="lower_node.port_number" description="" label="" name="port_number" range="value" type="int" value="4" widget="int"/>
-                    <conn input="line1.point1" output="upper_node"/>
-                    <conn input="line1.point2" output="lower_node"/>
-                </node>
-                <node name="last1" position="-5.00,13.00" prototype="list.last"/>
-                <node name="last2" position="-2.00,13.00" prototype="list.last"/>
-                <node name="last3" position="1.00,13.00" prototype="list.last"/>
-                <node name="last4" position="4.00,13.00" prototype="list.last"/>
-                <node name="last5" position="7.00,13.00" prototype="list.last"/>
-                <node name="last6" position="10.00,13.00" prototype="list.last"/>
-                <node name="second_conn" position="-2.00,14.00" prototype="core.network" renderedChild="line1">
-                    <node name="line1" position="5.00,4.00" prototype="corevector.line"/>
-                    <node name="lower_node" position="8.00,2.00" prototype="core.network" renderedChild="point_on_path1">
-                        <node name="point_on_path1" position="6.00,4.00" prototype="corevector.point_on_path">
-                            <port name="t" type="float" value="75.0"/>
-                        </node>
-                        <node name="port_number" position="8.00,0.00" prototype="math.integer">
-                            <port name="value" type="int" value="2"/>
-                        </node>
-                        <node name="slice1" position="6.00,3.00" prototype="list.slice">
-                            <port name="size" type="int" value="1"/>
-                        </node>
-                        <node name="ungroup1" position="4.00,1.00" prototype="corevector.ungroup"/>
-                        <port childReference="ungroup1.shape" description="The input shape." label="" name="node" range="value" type="geometry" widget="none"/>
-                        <port childReference="port_number.value" description="" label="" name="port_number" range="value" type="int" value="2" widget="int"/>
-                        <conn input="point_on_path1.shape" output="slice1"/>
-                        <conn input="slice1.list" output="ungroup1"/>
-                        <conn input="slice1.start_index" output="port_number"/>
-                    </node>
-                    <node name="upper_node" position="4.00,2.00" prototype="core.network" renderedChild="point_on_path2">
-                        <node name="last2" position="2.00,4.00" prototype="list.last"/>
-                        <node name="point_on_path2" position="2.00,5.00" prototype="corevector.point_on_path">
-                            <port name="t" type="float" value="25.0"/>
-                        </node>
-                        <node name="ungroup1" position="2.00,3.00" prototype="corevector.ungroup"/>
-                        <port childReference="ungroup1.shape" description="The input shape." label="" name="node" range="value" type="geometry" widget="none"/>
-                        <conn input="point_on_path2.shape" output="last2"/>
-                        <conn input="last2.list" output="ungroup1"/>
-                    </node>
-                    <port childReference="upper_node.node" description="The input shape." label="" name="upper_node" range="value" type="geometry" widget="none"/>
-                    <port childReference="lower_node.node" description="The input shape." label="" name="lower_node" range="value" type="geometry" widget="none"/>
-                    <port childReference="lower_node.port_number" description="" label="" name="port_number" range="value" type="int" value="2" widget="int"/>
-                    <conn input="line1.point1" output="upper_node"/>
-                    <conn input="line1.point2" output="lower_node"/>
-                </node>
-                <node name="sixth_conn" position="10.00,14.00" prototype="core.network" renderedChild="line1">
-                    <node name="line1" position="5.00,4.00" prototype="corevector.line"/>
-                    <node name="lower_node" position="8.00,2.00" prototype="core.network" renderedChild="point_on_path1">
-                        <node name="point_on_path1" position="6.00,4.00" prototype="corevector.point_on_path">
-                            <port name="t" type="float" value="75.0"/>
-                        </node>
-                        <node name="port_number" position="8.00,0.00" prototype="math.integer">
-                            <port name="value" type="int" value="6"/>
-                        </node>
-                        <node name="slice1" position="6.00,3.00" prototype="list.slice">
-                            <port name="size" type="int" value="1"/>
-                        </node>
-                        <node name="ungroup1" position="4.00,1.00" prototype="corevector.ungroup"/>
-                        <port childReference="ungroup1.shape" description="The input shape." label="" name="node" range="value" type="geometry" widget="none"/>
-                        <port childReference="port_number.value" description="" label="" name="port_number" range="value" type="int" value="6" widget="int"/>
-                        <conn input="point_on_path1.shape" output="slice1"/>
-                        <conn input="slice1.list" output="ungroup1"/>
-                        <conn input="slice1.start_index" output="port_number"/>
-                    </node>
-                    <node name="upper_node" position="4.00,2.00" prototype="core.network" renderedChild="point_on_path2">
-                        <node name="last2" position="2.00,4.00" prototype="list.last"/>
-                        <node name="point_on_path2" position="2.00,5.00" prototype="corevector.point_on_path">
-                            <port name="t" type="float" value="25.0"/>
-                        </node>
-                        <node name="ungroup1" position="2.00,3.00" prototype="corevector.ungroup"/>
-                        <port childReference="ungroup1.shape" description="The input shape." label="" name="node" range="value" type="geometry" widget="none"/>
-                        <conn input="point_on_path2.shape" output="last2"/>
-                        <conn input="last2.list" output="ungroup1"/>
-                    </node>
-                    <port childReference="upper_node.node" description="The input shape." label="" name="upper_node" range="value" type="geometry" widget="none"/>
-                    <port childReference="lower_node.node" description="The input shape." label="" name="lower_node" range="value" type="geometry" widget="none"/>
-                    <port childReference="lower_node.port_number" description="" label="" name="port_number" range="value" type="int" value="6" widget="int"/>
-                    <conn input="line1.point1" output="upper_node"/>
-                    <conn input="line1.point2" output="lower_node"/>
-                </node>
-                <node comment="Como não há variável para lista, tenho que fazer esta gambiarra" name="take_every1" position="-2.00,7.00" prototype="list.take_every"/>
-                <node name="take_every2" position="1.00,7.00" prototype="list.take_every"/>
-                <node name="take_every3" position="4.00,7.00" prototype="list.take_every"/>
-                <node name="take_every4" position="7.00,7.00" prototype="list.take_every"/>
-                <node name="take_every5" position="10.00,7.00" prototype="list.take_every"/>
-                <node name="take_every6" position="13.00,7.00" prototype="list.take_every"/>
-                <node name="third_conn" position="1.00,14.00" prototype="core.network" renderedChild="line1">
-                    <node name="line1" position="5.00,4.00" prototype="corevector.line"/>
-                    <node name="lower_node" position="8.00,2.00" prototype="core.network" renderedChild="point_on_path1">
-                        <node name="point_on_path1" position="6.00,4.00" prototype="corevector.point_on_path">
-                            <port name="t" type="float" value="75.0"/>
-                        </node>
-                        <node name="port_number" position="8.00,0.00" prototype="math.integer">
-                            <port name="value" type="int" value="3"/>
-                        </node>
-                        <node name="slice1" position="6.00,3.00" prototype="list.slice">
-                            <port name="size" type="int" value="1"/>
-                        </node>
-                        <node name="ungroup1" position="4.00,1.00" prototype="corevector.ungroup"/>
-                        <port childReference="ungroup1.shape" description="The input shape." label="" name="node" range="value" type="geometry" widget="none"/>
-                        <port childReference="port_number.value" description="" label="" name="port_number" range="value" type="int" value="3" widget="int"/>
-                        <conn input="point_on_path1.shape" output="slice1"/>
-                        <conn input="slice1.list" output="ungroup1"/>
-                        <conn input="slice1.start_index" output="port_number"/>
-                    </node>
-                    <node name="upper_node" position="4.00,2.00" prototype="core.network" renderedChild="point_on_path2">
-                        <node name="last2" position="2.00,4.00" prototype="list.last"/>
-                        <node name="point_on_path2" position="2.00,5.00" prototype="corevector.point_on_path">
-                            <port name="t" type="float" value="25.0"/>
-                        </node>
-                        <node name="ungroup1" position="2.00,3.00" prototype="corevector.ungroup"/>
-                        <port childReference="ungroup1.shape" description="The input shape." label="" name="node" range="value" type="geometry" widget="none"/>
-                        <conn input="point_on_path2.shape" output="last2"/>
-                        <conn input="last2.list" output="ungroup1"/>
-                    </node>
-                    <port childReference="upper_node.node" description="The input shape." label="" name="upper_node" range="value" type="geometry" widget="none"/>
-                    <port childReference="lower_node.node" description="The input shape." label="" name="lower_node" range="value" type="geometry" widget="none"/>
-                    <port childReference="lower_node.port_number" description="" label="" name="port_number" range="value" type="int" value="3" widget="int"/>
-                    <conn input="line1.point1" output="upper_node"/>
-                    <conn input="line1.point2" output="lower_node"/>
-                </node>
-                <port childReference="combine2.list1" description="The first list." label="" name="lower node" range="list" type="list" widget="none"/>
-                <port childReference="take_every1.list" description="The input list." label="" name="first connection" range="list" type="list" widget="none"/>
-                <port childReference="take_every2.list" description="The input list." label="" name="second connection" range="list" type="list" widget="none"/>
-                <port childReference="take_every3.list" description="The input list." label="" name="third connection" range="list" type="list" widget="none"/>
-                <port childReference="take_every4.list" description="The input list." label="" name="fourth connection" range="list" type="list" widget="none"/>
-                <port childReference="take_every5.list" description="The input list." label="" name="fifth connection" range="list" type="list" widget="none"/>
-                <port childReference="take_every6.list" description="The input list." label="" name="sixth connection" range="list" type="list" widget="none"/>
-                <conn input="combine1.list1" output="first_conn"/>
-                <conn input="distinct1.list" output="combine3"/>
-                <conn input="combine1.list7" output="distinct1"/>
-                <conn input="first_conn.lower_node" output="combine2"/>
-                <conn input="second_conn.lower_node" output="combine2"/>
-                <conn input="third_conn.lower_node" output="combine2"/>
-                <conn input="fourth_conn.lower_node" output="combine2"/>
-                <conn input="fifth_conn.lower_node" output="combine2"/>
-                <conn input="sixth_conn.lower_node" output="combine2"/>
-                <conn input="combine1.list2" output="second_conn"/>
-                <conn input="combine1.list3" output="third_conn"/>
-                <conn input="combine1.list4" output="fourth_conn"/>
-                <conn input="combine1.list5" output="fifth_conn"/>
-                <conn input="combine1.list6" output="sixth_conn"/>
-                <conn input="first_conn.upper_node" output="last1"/>
-                <conn input="second_conn.upper_node" output="last2"/>
-                <conn input="third_conn.upper_node" output="last3"/>
-                <conn input="fourth_conn.upper_node" output="last4"/>
-                <conn input="fifth_conn.upper_node" output="last5"/>
-                <conn input="sixth_conn.upper_node" output="last6"/>
-                <conn input="last1.list" output="take_every1"/>
-                <conn input="combine3.list1" output="take_every1"/>
-                <conn input="last2.list" output="take_every2"/>
-                <conn input="combine3.list2" output="take_every2"/>
-                <conn input="last3.list" output="take_every3"/>
-                <conn input="combine3.list3" output="take_every3"/>
-                <conn input="last4.list" output="take_every4"/>
-                <conn input="combine3.list4" output="take_every4"/>
-                <conn input="last5.list" output="take_every5"/>
-                <conn input="combine3.list5" output="take_every5"/>
-                <conn input="last6.list" output="take_every6"/>
-                <conn input="combine3.list6" output="take_every6"/>
-            </node>
-            <node name="lower_node" position="7.00,8.00" prototype="core.network" renderedChild="group2">
-                <node name="align1" position="-1.00,1.00" prototype="corevector.align">
-                    <port name="valign" type="string" value="top"/>
-                </node>
-                <node name="arguments" position="-1.00,-1.00" prototype="corevector.textpath">
-                    <port name="text" type="string" value=""/>
-                    <port name="font_name" type="string" value="CMU Serif Italic"/>
-                    <port name="font_size" type="float" value="20.0"/>
-                    <port name="align" type="string" value="LEFT"/>
-                </node>
-                <node name="colorize1" position="-1.00,0.00" prototype="corevector.colorize">
-                    <port name="fill" type="color" value="#575757ff"/>
-                </node>
-                <node name="combine1" position="-2.00,4.00" prototype="list.combine"/>
-                <node name="group1" position="-5.00,2.00" prototype="corevector.group"/>
-                <node name="group2" position="-3.00,9.00" prototype="corevector.group"/>
-                <node name="node_text" position="-5.00,-1.00" prototype="string.concatenate">
-                    <port name="string1" type="string" value="["/>
-                    <port name="string2" type="string" value="coordinates"/>
-                    <port name="string3" type="string" value="]"/>
-                </node>
-                <node name="ports" position="-6.00,1.00" prototype="core.network" renderedChild="stack1">
-                    <node name="combine1" position="3.00,7.00" prototype="list.combine"/>
-                    <node name="copy1" position="-2.00,4.00" prototype="corevector.copy">
-                        <port name="copies" type="int" value="3"/>
-                        <port name="translate" type="point" value="10.00,0.00"/>
-                    </node>
-                    <node name="font_size" position="4.00,1.00" prototype="math.integer">
-                        <port name="value" type="int" value="23"/>
-                    </node>
-                    <node name="group1" position="-2.00,5.00" prototype="corevector.group"/>
-                    <node name="stack1" position="3.00,8.00" prototype="corevector.stack">
-                        <port name="direction" type="string" value="s"/>
-                        <port name="margin" type="float" value="2.0"/>
-                    </node>
-                    <node name="textpath2" position="-2.00,3.00" prototype="corevector.textpath">
-                        <port name="text" type="string" value="-"/>
-                        <port name="font_name" type="string" value="CMU Sans Serif Bold Extended"/>
-                        <port name="font_size" type="float" value="28.0"/>
-                        <port name="align" type="string" value="LEFT"/>
-                        <port name="position" type="point" value="6.00,0.00"/>
-                    </node>
-                    <node name="textpath3" position="7.00,3.00" prototype="corevector.textpath">
-                        <port name="text" type="string" value="-"/>
-                        <port name="font_name" type="string" value="CMU Sans Serif Bold Extended"/>
-                        <port name="font_size" type="float" value="28.0"/>
-                        <port name="align" type="string" value="LEFT"/>
-                        <port name="position" type="point" value="6.00,0.00"/>
-                    </node>
-                    <port childReference="combine1.list2" description="The second list." label="" name="node" range="list" type="list" widget="none"/>
-                    <port childReference="copy1.copies" description="The amount of copies." label="" min="1.0" name="number of inputs" range="value" type="int" value="3" widget="int"/>
-                    <conn input="stack1.shapes" output="combine1"/>
-                    <conn input="combine1.list3" output="textpath3"/>
-                    <conn input="textpath2.font_size" output="font_size"/>
-                    <conn input="textpath3.font_size" output="font_size"/>
-                    <conn input="copy1.shape" output="textpath2"/>
-                    <conn input="group1.shapes" output="copy1"/>
-                    <conn input="combine1.list1" output="group1"/>
-                </node>
-                <node name="reverse1" position="-2.00,6.00" prototype="list.reverse"/>
-                <node name="stack1" position="-2.00,5.00" prototype="corevector.stack">
-                    <port name="margin" type="float" value="13.0"/>
-                </node>
-                <node name="textpath1" position="-5.00,0.00" prototype="corevector.textpath">
-                    <port name="font_name" type="string" value="CMU Serif Roman"/>
-                    <port name="align" type="string" value="LEFT"/>
-                </node>
-                <node name="translate1" position="-3.00,8.00" prototype="corevector.translate"/>
-                <port childReference="translate1.translate" description="The amount of translation." label="" name="position" range="value" type="point" value="0.00,0.00" widget="point"/>
-                <port childReference="node_text.string2" description="" label="" name="name" range="value" type="string" value="coordinates" widget="string"/>
-                <port childReference="ports.number of inputs" description="The amount of copies." label="" min="1.0" name="number of inputs" range="value" type="int" value="3" widget="int"/>
-                <port childReference="arguments.text" description="The input text." label="" name="arguments" range="value" type="string" value="" widget="string"/>
-                <conn input="ports.node" output="textpath1"/>
-                <conn input="colorize1.shape" output="arguments"/>
-                <conn input="group1.shapes" output="ports"/>
-                <conn input="stack1.shapes" output="combine1"/>
-                <conn input="align1.shape" output="colorize1"/>
-                <conn input="textpath1.text" output="node_text"/>
-                <conn input="group2.shapes" output="translate1"/>
-                <conn input="combine1.list1" output="group1"/>
-                <conn input="combine1.list2" output="align1"/>
-                <conn input="reverse1.list" output="stack1"/>
-                <conn input="translate1.shape" output="reverse1"/>
-            </node>
-            <port childReference="lower_node.position" description="The amount of translation." label="" name="position" range="value" type="point" value="0.00,0.00" widget="point"/>
-            <port childReference="lower_node.name" description="" label="" name="name" range="value" type="string" value="coordinates" widget="string"/>
-            <port childReference="lower_node.number of inputs" description="The amount of copies." label="" min="1.0" name="number of inputs" range="value" type="int" value="3" widget="int"/>
-            <port childReference="lower_node.arguments" description="The input text." label="" name="arguments" range="value" type="string" value="" widget="string"/>
-            <port childReference="connections.first connection" description="The input list." label="" name="first connection" range="list" type="list" widget="none"/>
-            <port childReference="connections.second connection" description="The input list." label="" name="second connection" range="list" type="list" widget="none"/>
-            <port childReference="connections.third connection" description="The input list." label="" name="third connection" range="list" type="list" widget="none"/>
-            <port childReference="connections.fourth connection" description="The input list." label="" name="fourth connection" range="list" type="list" widget="none"/>
-            <port childReference="connections.fifth connection" description="The input list." label="" name="fifth connection" range="list" type="list" widget="none"/>
-            <port childReference="connections.sixth connection" description="The input list." label="" name="sixth connection" range="list" type="list" widget="none"/>
-            <conn input="connections.lower node" output="lower_node"/>
-            <conn input="combine1.list2" output="lower_node"/>
-            <conn input="combine1.list1" output="connections"/>
-        </node>
-        <node name="show" position="9.00,1.00" prototype="core.network" renderedChild="stack2">
+        <node name="show" position="6.00,1.00" prototype="core.network" renderedChild="stack2">
             <node name="align1" position="6.00,4.00" prototype="corevector.align"/>
             <node name="combine1" position="6.00,3.00" prototype="list.combine"/>
             <node name="group1" position="4.00,1.00" prototype="corevector.group"/>
@@ -27074,7 +26053,374 @@
             <conn input="combine1.list1" output="group1"/>
             <conn input="combine1.list2" output="group2"/>
         </node>
-        <conn input="node_drawing1.second connection" output="node_drawing2"/>
-        <conn input="network1.shapes" output="node_drawing1"/>
+        <node name="subnetwork" position="10.00,1.00" prototype="core.network" renderedChild="combine1">
+            <node comment="Acrescenta o número da porta às informações de publicação" name="add_port_number" position="13.00,6.00" prototype="core.network" renderedChild="make_table1">
+                <node name="combine4" position="16.00,6.00" prototype="list.combine"/>
+                <node name="count1" position="13.00,8.00" prototype="list.count"/>
+                <node name="lookup3" position="16.00,13.00" prototype="data.lookup">
+                    <port name="key" type="string" value="name"/>
+                </node>
+                <node name="lookup4" position="19.00,13.00" prototype="data.lookup">
+                    <port name="key" type="string" value="published_port"/>
+                </node>
+                <node name="make_table1" position="14.00,15.00" prototype="data.make_table">
+                    <port name="headers" type="string" value="number;name;published_port"/>
+                </node>
+                <node name="range1" position="13.00,9.00" prototype="math.range"/>
+                <node name="slice1" position="16.00,11.00" prototype="list.slice">
+                    <port name="size" type="int" value="1"/>
+                </node>
+                <port childReference="combine4.list1" description="The first list." label="" name="publication info" range="list" type="list" widget="none"/>
+                <conn input="count1.list" output="combine4"/>
+                <conn input="slice1.list" output="combine4"/>
+                <conn input="lookup3.list" output="slice1"/>
+                <conn input="lookup4.list" output="slice1"/>
+                <conn input="range1.end" output="count1"/>
+                <conn input="slice1.start_index" output="range1"/>
+                <conn input="make_table1.list2" output="lookup3"/>
+                <conn input="make_table1.list3" output="lookup4"/>
+                <conn input="make_table1.list1" output="range1"/>
+            </node>
+            <node name="children" position="6.00,6.00" prototype="list.combine"/>
+            <node name="combine1" position="9.00,18.00" prototype="list.combine"/>
+            <node name="frame" position="6.00,8.00" prototype="core.network" renderedChild="fit_to1">
+                <node name="centroid1" position="13.00,1.00" prototype="corevector.centroid"/>
+                <node name="colorize1" position="2.00,7.00" prototype="corevector.colorize">
+                    <port name="fill" type="color" value="#00000000"/>
+                    <port name="stroke" type="color" value="#bbbbbbff"/>
+                    <port name="strokeWidth" type="float" value="1.0"/>
+                </node>
+                <node name="colorize3" position="9.00,3.00" prototype="corevector.colorize">
+                    <port name="fill" type="color" value="#00000000"/>
+                    <port name="stroke" type="color" value="#bbbbbbff"/>
+                    <port name="strokeWidth" type="float" value="1.0"/>
+                </node>
+                <node name="combine1" position="4.00,9.00" prototype="list.combine"/>
+                <node name="combine3" position="11.00,-1.00" prototype="list.combine"/>
+                <node name="fit1" position="5.00,5.00" prototype="corevector.fit"/>
+                <node name="fit_to1" position="10.00,5.00" prototype="corevector.fit_to">
+                    <port name="keep_proportions" type="boolean" value="false"/>
+                </node>
+                <node name="group1" position="5.00,3.00" prototype="corevector.group"/>
+                <node name="group2" position="12.00,3.00" prototype="corevector.group"/>
+                <node name="group3" position="13.00,0.00" prototype="corevector.group"/>
+                <node name="multiply1" position="2.00,5.00" prototype="math.multiply">
+                    <port name="value2" type="float" value="1.5"/>
+                </node>
+                <node name="number1" position="2.00,3.00" prototype="math.number">
+                    <port name="value" type="float" value="100.0"/>
+                </node>
+                <node name="rect1" position="2.00,6.00" prototype="corevector.rect">
+                    <port name="width" type="float" value="149.0"/>
+                    <port name="height" type="float" value="109.0"/>
+                </node>
+                <node name="rect3" position="9.00,2.00" prototype="corevector.rect">
+                    <port name="width" type="float" value="149.0"/>
+                    <port name="height" type="float" value="109.0"/>
+                </node>
+                <node name="scale1" position="12.00,2.00" prototype="corevector.scale">
+                    <port name="scale" type="point" value="140.00,140.00"/>
+                </node>
+                <port childReference="combine3.list1" description="The first list." label="" name="children" range="list" type="list" widget="none"/>
+                <conn input="colorize1.shape" output="rect1"/>
+                <conn input="multiply1.value1" output="number1"/>
+                <conn input="rect1.width" output="multiply1"/>
+                <conn input="rect1.height" output="multiply1"/>
+                <conn input="fit1.width" output="number1"/>
+                <conn input="fit1.height" output="number1"/>
+                <conn input="fit1.shape" output="group1"/>
+                <conn input="combine1.list1" output="colorize1"/>
+                <conn input="combine1.list2" output="fit1"/>
+                <conn input="fit_to1.bounding" output="group2"/>
+                <conn input="colorize3.shape" output="rect3"/>
+                <conn input="fit_to1.shape" output="colorize3"/>
+                <conn input="scale1.shape" output="combine3"/>
+                <conn input="group2.shapes" output="scale1"/>
+                <conn input="group3.shapes" output="combine3"/>
+                <conn input="centroid1.shape" output="group3"/>
+                <conn input="scale1.origin" output="centroid1"/>
+            </node>
+            <node name="name" position="13.00,8.00" prototype="data.lookup">
+                <port name="key" type="string" value="name"/>
+            </node>
+            <node name="number" position="10.00,8.00" prototype="data.lookup">
+                <port name="key" type="string" value="number"/>
+            </node>
+            <node name="number_of_ports" position="16.00,10.00" prototype="list.count"/>
+            <node name="ports" position="11.00,12.00" prototype="core.network" renderedChild="combine1">
+                <node name="add1" position="6.00,8.00" prototype="math.add">
+                    <port name="value2" type="float" value="10.0"/>
+                </node>
+                <node name="bottom_left" position="3.00,5.00" prototype="corevector.point_on_path">
+                    <port name="t" type="float" value="81.0"/>
+                </node>
+                <node name="combine1" position="0.00,13.00" prototype="list.combine"/>
+                <node name="copy1" position="-2.00,10.00" prototype="corevector.copy">
+                    <port name="copies" type="int" value="4"/>
+                    <port name="translate" type="point" value="10.00,0.00"/>
+                </node>
+                <node name="font_size" position="0.00,7.00" prototype="math.integer">
+                    <port name="value" type="int" value="23"/>
+                </node>
+                <node name="frame" position="-1.00,3.00" prototype="list.first"/>
+                <node name="group2" position="-2.00,11.00" prototype="corevector.group"/>
+                <node name="make_point1" position="3.00,10.00" prototype="corevector.make_point"/>
+                <node name="subnetwork" position="-1.00,2.00" prototype="list.combine"/>
+                <node name="textpath2" position="-2.00,9.00" prototype="corevector.textpath">
+                    <port name="text" type="string" value="-"/>
+                    <port name="font_name" type="string" value="CMU Sans Serif Bold Extended"/>
+                    <port name="font_size" type="float" value="28.0"/>
+                    <port name="align" type="string" value="LEFT"/>
+                    <port name="position" type="point" value="-70.00,0.00"/>
+                </node>
+                <node name="textpath3" position="2.00,11.00" prototype="corevector.textpath">
+                    <port name="text" type="string" value="-"/>
+                    <port name="font_name" type="string" value="CMU Sans Serif Bold Extended"/>
+                    <port name="font_size" type="float" value="28.0"/>
+                    <port name="align" type="string" value="LEFT"/>
+                    <port name="position" type="point" value="-70.00,0.00"/>
+                </node>
+                <node name="top_left" position="-1.00,5.00" prototype="corevector.point_on_path"/>
+                <node name="x" position="3.00,7.00" prototype="data.lookup"/>
+                <node name="y" position="6.00,7.00" prototype="data.lookup">
+                    <port name="key" type="string" value="y"/>
+                </node>
+                <port childReference="subnetwork.list1" description="The first list." label="" name="subnetwork" range="list" type="list" widget="none"/>
+                <port childReference="copy1.copies" description="The amount of copies." label="" min="1.0" name="number of ports" range="value" type="int" value="4" widget="int"/>
+                <conn input="textpath2.font_size" output="font_size"/>
+                <conn input="copy1.shape" output="textpath2"/>
+                <conn input="group2.shapes" output="copy1"/>
+                <conn input="textpath3.font_size" output="font_size"/>
+                <conn input="make_point1.y" output="add1"/>
+                <conn input="textpath3.position" output="make_point1"/>
+                <conn input="combine1.list1" output="group2"/>
+                <conn input="combine1.list2" output="textpath3"/>
+                <conn input="frame.list" output="subnetwork"/>
+                <conn input="textpath2.position" output="top_left"/>
+                <conn input="top_left.shape" output="frame"/>
+                <conn input="bottom_left.shape" output="frame"/>
+                <conn input="make_point1.x" output="x"/>
+                <conn input="x.list" output="bottom_left"/>
+                <conn input="add1.value1" output="y"/>
+                <conn input="y.list" output="bottom_left"/>
+            </node>
+            <node name="publications" position="11.00,14.00" prototype="core.network" renderedChild="combine3">
+                <node name="children" position="16.00,11.00" prototype="list.combine"/>
+                <node name="color1" position="12.00,12.00" prototype="color.color">
+                    <port name="color" type="color" value="#00009dff"/>
+                </node>
+                <node name="combine3" position="11.00,18.00" prototype="list.combine"/>
+                <node name="link" position="8.00,16.00" prototype="core.network" renderedChild="colorize1">
+                    <node name="add1" position="-3.00,12.00" prototype="math.add">
+                        <port name="value2" type="float" value="1.0"/>
+                    </node>
+                    <node name="add2" position="0.00,12.00" prototype="math.add">
+                        <port name="value2" type="float" value="-4.0"/>
+                    </node>
+                    <node name="add3" position="7.00,12.00" prototype="math.add">
+                        <port name="value2" type="float" value="7.0"/>
+                    </node>
+                    <node name="add4" position="4.00,12.00" prototype="math.add">
+                        <port name="value2" type="float" value="4.0"/>
+                    </node>
+                    <node name="colorize1" position="3.00,18.00" prototype="corevector.colorize">
+                        <port name="strokeWidth" type="float" value="1.0"/>
+                    </node>
+                    <node name="line1" position="3.00,17.00" prototype="corevector.line"/>
+                    <node name="make_point1" position="-2.00,14.00" prototype="corevector.make_point"/>
+                    <node name="make_point2" position="5.00,14.00" prototype="corevector.make_point"/>
+                    <node name="point_on_path1" position="5.00,9.00" prototype="corevector.point_on_path"/>
+                    <node name="port" position="-1.00,9.00" prototype="corevector.point"/>
+                    <node name="x" position="-3.00,11.00" prototype="data.lookup"/>
+                    <node name="x1" position="4.00,11.00" prototype="data.lookup"/>
+                    <node name="y" position="0.00,11.00" prototype="data.lookup">
+                        <port name="key" type="string" value="y"/>
+                    </node>
+                    <node name="y1" position="7.00,11.00" prototype="data.lookup">
+                        <port name="key" type="string" value="y"/>
+                    </node>
+                    <port childReference="port.value" description="The input point." label="" name="port" range="value" type="point" value="0.00,0.00" widget="point"/>
+                    <port childReference="point_on_path1.shape" description="The input shape." label="" name="name" range="value" type="geometry" widget="none"/>
+                    <port childReference="colorize1.stroke" description="The new stroke color." label="" name="color" range="value" type="color" value="#000000ff" widget="color"/>
+                    <conn input="colorize1.shape" output="line1"/>
+                    <conn input="make_point1.x" output="add1"/>
+                    <conn input="make_point1.y" output="add2"/>
+                    <conn input="line1.point1" output="make_point1"/>
+                    <conn input="x.list" output="port"/>
+                    <conn input="add1.value1" output="x"/>
+                    <conn input="add2.value1" output="y"/>
+                    <conn input="x1.list" output="point_on_path1"/>
+                    <conn input="y.list" output="port"/>
+                    <conn input="y1.list" output="point_on_path1"/>
+                    <conn input="add3.value1" output="y1"/>
+                    <conn input="line1.point2" output="make_point2"/>
+                    <conn input="make_point2.y" output="add3"/>
+                    <conn input="add4.value1" output="x1"/>
+                    <conn input="make_point2.x" output="add4"/>
+                </node>
+                <node name="port" position="9.00,8.00" prototype="list.combine"/>
+                <node name="port_name" position="11.00,15.00" prototype="core.network" renderedChild="colorize1">
+                    <node name="colorize1" position="3.00,16.00" prototype="corevector.colorize"/>
+                    <node name="make_point1" position="3.00,14.00" prototype="corevector.make_point"/>
+                    <node name="multiply1" position="5.00,11.00" prototype="math.multiply"/>
+                    <node name="point1" position="3.00,8.00" prototype="corevector.point"/>
+                    <node name="port_number" position="9.00,8.00" prototype="math.integer"/>
+                    <node name="subtract1" position="5.00,12.00" prototype="math.subtract">
+                        <port name="value2" type="float" value="19.0"/>
+                    </node>
+                    <node name="subtract2" position="2.00,10.00" prototype="math.subtract">
+                        <port name="value2" type="float" value="3.0"/>
+                    </node>
+                    <node name="subtract3" position="8.00,9.00" prototype="math.subtract">
+                        <port name="value1" type="float" value="2.0"/>
+                    </node>
+                    <node name="textpath1" position="3.00,15.00" prototype="corevector.textpath">
+                        <port name="text" type="string" value="position"/>
+                        <port name="font_name" type="string" value="CMU Serif Italic"/>
+                        <port name="align" type="string" value="LEFT"/>
+                    </node>
+                    <node name="x" position="2.00,9.00" prototype="data.lookup"/>
+                    <node name="y" position="5.00,9.00" prototype="data.lookup">
+                        <port name="key" type="string" value="y"/>
+                    </node>
+                    <port childReference="point1.value" description="The input point." label="" name="position" range="value" type="point" value="0.00,0.00" widget="point"/>
+                    <port childReference="textpath1.text" description="The input text." label="" name="name" range="value" type="string" value="position" widget="string"/>
+                    <port childReference="colorize1.fill" description="The new fill color. Set alpha to 0 for no fill." label="" name="color" range="value" type="color" value="#000000ff" widget="color"/>
+                    <port childReference="port_number.value" description="" label="" name="port number" range="value" type="int" value="0" widget="int"/>
+                    <port childReference="subtract3.value1" description="" label="" name="number of ports" range="value" type="float" value="2.0" widget="float"/>
+                    <conn input="x.list" output="point1"/>
+                    <conn input="y.list" output="point1"/>
+                    <conn input="textpath1.position" output="make_point1"/>
+                    <conn input="colorize1.shape" output="textpath1"/>
+                    <conn input="subtract2.value1" output="x"/>
+                    <conn input="make_point1.x" output="subtract2"/>
+                    <conn input="subtract3.value2" output="port_number"/>
+                    <conn input="multiply1.value2" output="subtract3"/>
+                    <conn input="multiply1.value1" output="y"/>
+                    <conn input="subtract1.value1" output="multiply1"/>
+                    <conn input="make_point1.y" output="subtract1"/>
+                </node>
+                <node name="port_number" position="12.00,8.00" prototype="math.integer"/>
+                <node name="port_position" position="11.00,10.00" prototype="core.network" renderedChild="point_on_path1">
+                    <node name="combine3" position="3.00,6.00" prototype="list.combine"/>
+                    <node name="first1" position="3.00,7.00" prototype="list.first"/>
+                    <node name="point_on_path1" position="3.00,11.00" prototype="corevector.point_on_path">
+                        <port name="t" type="float" value="25.0"/>
+                    </node>
+                    <node name="slice1" position="3.00,10.00" prototype="list.slice">
+                        <port name="size" type="int" value="1"/>
+                    </node>
+                    <node name="ungroup1" position="3.00,8.00" prototype="corevector.ungroup"/>
+                    <port childReference="combine3.list1" description="The first list." label="" name="ports" range="list" type="list" widget="none"/>
+                    <port childReference="slice1.start_index" description="The starting index in the list." label="" min="0.0" name="port_number" range="value" type="int" value="0" widget="int"/>
+                    <conn input="point_on_path1.shape" output="slice1"/>
+                    <conn input="first1.list" output="combine3"/>
+                    <conn input="ungroup1.shape" output="first1"/>
+                    <conn input="slice1.list" output="ungroup1"/>
+                </node>
+                <node name="pub_chord" position="14.00,16.00" prototype="core.network" renderedChild="colorize1">
+                    <node name="colorize1" position="11.00,13.00" prototype="corevector.colorize">
+                        <port name="fill" type="color" value="#00000000"/>
+                        <port name="stroke" type="color" value="#00009d44"/>
+                        <port name="strokeWidth" type="float" value="3.0"/>
+                    </node>
+                    <node name="quad_curve1" position="11.00,11.00" prototype="corevector.quad_curve">
+                        <port name="distance" type="float" value="-2.0"/>
+                    </node>
+                    <port childReference="quad_curve1.point1" description="The starting point." label="" name="point1" range="value" type="point" value="0.00,0.00" widget="point"/>
+                    <port childReference="quad_curve1.point2" description="The ending point." label="" name="point2" range="value" type="point" value="100.00,0.00" widget="point"/>
+                    <conn input="colorize1.shape" output="quad_curve1"/>
+                </node>
+                <node name="pub_position" position="16.00,12.00" prototype="core.network" renderedChild="make_point1">
+                    <node name="add1" position="10.00,16.00" prototype="math.add"/>
+                    <node name="amount_of_ports" position="7.00,10.00" prototype="core.network" renderedChild="rest1">
+                        <node name="count1" position="0.00,17.00" prototype="list.count"/>
+                        <node name="count3" position="1.00,12.00" prototype="list.count"/>
+                        <node name="rest1" position="0.00,16.00" prototype="list.rest"/>
+                        <node name="slice3" position="0.00,15.00" prototype="list.slice">
+                            <port name="size" type="int" value="1"/>
+                        </node>
+                        <node name="subtract2" position="1.00,13.00" prototype="math.subtract">
+                            <port name="value2" type="float" value="2.0"/>
+                        </node>
+                        <node name="ungroup2" position="0.00,11.00" prototype="corevector.ungroup"/>
+                        <port childReference="ungroup2.shape" description="The input shape." label="" name="shape" range="value" type="geometry" widget="none"/>
+                        <conn input="slice3.list" output="ungroup2"/>
+                        <conn input="subtract2.value1" output="count3"/>
+                        <conn input="slice3.size" output="subtract2"/>
+                        <conn input="count3.list" output="ungroup2"/>
+                        <conn input="count1.list" output="rest1"/>
+                        <conn input="rest1.list" output="slice3"/>
+                    </node>
+                    <node name="combine3" position="7.00,8.00" prototype="list.combine"/>
+                    <node name="make_point1" position="8.00,17.00" prototype="corevector.make_point"/>
+                    <node name="point_on_path1" position="7.00,13.00" prototype="corevector.point_on_path">
+                        <port name="t" type="float" value="75.0"/>
+                    </node>
+                    <node name="reverse1" position="7.00,9.00" prototype="list.reverse"/>
+                    <node name="slice1" position="7.00,12.00" prototype="list.slice">
+                        <port name="start_index" type="int" value="4"/>
+                        <port name="size" type="int" value="1"/>
+                    </node>
+                    <node name="x" position="7.00,15.00" prototype="data.lookup"/>
+                    <node name="y" position="10.00,15.00" prototype="data.lookup">
+                        <port name="key" type="string" value="y"/>
+                    </node>
+                    <port childReference="combine3.list1" description="The first list." label="" name="children" range="list" type="list" widget="none"/>
+                    <port childReference="slice1.start_index" description="The starting index in the list." label="" min="0.0" name="port number" range="value" type="int" value="4" widget="int"/>
+                    <conn input="reverse1.list" output="combine3"/>
+                    <conn input="amount_of_ports.shape" output="reverse1"/>
+                    <conn input="slice1.list" output="amount_of_ports"/>
+                    <conn input="point_on_path1.shape" output="slice1"/>
+                    <conn input="x.list" output="point_on_path1"/>
+                    <conn input="y.list" output="point_on_path1"/>
+                    <conn input="add1.value1" output="y"/>
+                    <conn input="make_point1.x" output="x"/>
+                    <conn input="make_point1.y" output="add1"/>
+                </node>
+                <port childReference="port.list1" description="The first list." label="" name="ports" range="list" type="list" widget="none"/>
+                <port childReference="children.list1" description="The first list." label="" name="children" range="list" type="list" widget="none"/>
+                <port childReference="port_number.value" description="" label="" name="port number" range="value" type="int" value="0" widget="int"/>
+                <port childReference="port_name.name" description="The input text." label="" name="port name" range="value" type="string" value="position" widget="string"/>
+                <port childReference="pub_position.port number" description="The starting index in the list." label="" min="0.0" name="published port" range="value" type="int" value="4" widget="int"/>
+                <port childReference="port_name.number of ports" description="" label="" name="number of ports" range="value" type="float" value="2.0" widget="float"/>
+                <conn input="port_name.position" output="port_position"/>
+                <conn input="port_name.color" output="color1"/>
+                <conn input="link.port" output="port_position"/>
+                <conn input="link.name" output="port_name"/>
+                <conn input="link.color" output="color1"/>
+                <conn input="pub_chord.point1" output="port_position"/>
+                <conn input="pub_chord.point2" output="pub_position"/>
+                <conn input="combine3.list1" output="link"/>
+                <conn input="combine3.list2" output="port_name"/>
+                <conn input="combine3.list3" output="pub_chord"/>
+                <conn input="port_position.ports" output="port"/>
+                <conn input="pub_position.children" output="children"/>
+                <conn input="port_position.port_number" output="port_number"/>
+                <conn input="port_name.port number" output="port_number"/>
+            </node>
+            <node name="published_port" position="16.00,8.00" prototype="data.lookup">
+                <port name="key" type="string" value="published_port"/>
+            </node>
+            <port childReference="children.list1" description="The first list." label="" name="children" range="list" type="list" widget="none"/>
+            <port childReference="add_port_number.publication info" description="The first list." label="" name="publication info" range="list" type="list" widget="none"/>
+            <conn input="combine1.list2" output="ports"/>
+            <conn input="publications.ports" output="ports"/>
+            <conn input="publications.children" output="children"/>
+            <conn input="combine1.list3" output="publications"/>
+            <conn input="combine1.list4" output="children"/>
+            <conn input="number.list" output="add_port_number"/>
+            <conn input="name.list" output="add_port_number"/>
+            <conn input="published_port.list" output="add_port_number"/>
+            <conn input="publications.port number" output="number"/>
+            <conn input="publications.port name" output="name"/>
+            <conn input="publications.published port" output="published_port"/>
+            <conn input="number_of_ports.list" output="published_port"/>
+            <conn input="publications.number of ports" output="number_of_ports"/>
+            <conn input="ports.number of ports" output="number_of_ports"/>
+            <conn input="ports.subnetwork" output="frame"/>
+            <conn input="combine1.list1" output="frame"/>
+            <conn input="frame.children" output="children"/>
+        </node>
     </node>
 </ndbx>
